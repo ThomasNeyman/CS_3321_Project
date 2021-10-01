@@ -3,13 +3,13 @@
 Implementation for a Monopoly game using microservices. Two Players from different computers will be able to play a version of monopoly via a clod server.
 
 ## Instalation
-## Useage
+## Usage
 
 ## Team
 Thomas Neyman - Product Owner  
 Caleb Eardley - Scrum Master  
 Garrett Stouffer  
-Pawan  
+Pawan Kandel 
 
 ## Technologies Used
 Programming Language - Java (frant and back)
