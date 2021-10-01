@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 Below, the versions will be recorded
 
-## <Version> <Date-of-Release>
+## \<Version\> \<Date-of-Release\>
 
 ### Added
 
