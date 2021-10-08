@@ -12,7 +12,7 @@ Garrett Stouffer
 Pawan Kandel 
 
 ## Technologies Used
-Programming Language - Java (frant and back)
+Programming Language - Java (front and back)
 InteliJ IDE  
 Gradle  
 Testing - J Unit Jupiter  
