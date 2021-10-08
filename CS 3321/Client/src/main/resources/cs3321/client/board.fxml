@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="600.0">
+         <top>
+            <HBox prefHeight="75.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+               </children>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox prefHeight="75.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+               </children>
+            </HBox>
+         </bottom>
+         <left>
+            <VBox prefHeight="450.0" prefWidth="75.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+               </children>
+            </VBox>
+         </left>
+         <right>
+            <VBox prefHeight="400.0" prefWidth="75.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0103021c" height="75.0" stroke="BLACK" strokeType="INSIDE" width="75.0" />
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</Pane>

@@ -1,2 +1,4 @@
 rootProject.name = 'CS3321-Project'
+include 'Server'
+include 'Library'
 
