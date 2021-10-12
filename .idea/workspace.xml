@@ -4,8 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="855b2e09-adfa-4f02-afcd-b881576dd5f6" name="Changes" comment="Typo">
-      <change beforePath="$PROJECT_DIR$/CS 3321/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/settings.gradle" afterDir="false" />
+    <list default="true" id="855b2e09-adfa-4f02-afcd-b881576dd5f6" name="Changes" comment="Project restructure, Basic UI">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/7.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/build/resources/main/cs3321/client/board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/build/resources/main/cs3321/client/board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/build/resources/main/cs3321/client/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/build/resources/main/cs3321/client/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/src/main/java/cs3321/client/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/src/main/java/cs3321/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/src/main/java/cs3321/client/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/src/main/java/cs3321/client/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/src/main/resources/cs3321/client/board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/src/main/resources/cs3321/client/board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CS 3321/Client/src/main/resources/cs3321/client/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/CS 3321/Client/src/main/resources/cs3321/client/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +63,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
@@ -58,9 +73,9 @@
       <recent name="$PROJECT_DIR$/CS 3321/Client/src/main/resources/cs3321/client" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HelloApplication (1)">
-    <configuration name="HelloApplication (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="cs3321.client.HelloApplication" />
+  <component name="RunManager" selected="Application.Client">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cs3321.client.Client" />
       <module name="Client.main" />
       <extension name="coverage">
         <pattern>
@@ -87,7 +102,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HelloApplication (1)" />
+        <item itemvalue="Application.Client" />
         <item itemvalue="Application.HelloApplication" />
       </list>
     </recent_temporary>
@@ -108,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633727364802</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Project restructure, Basic UI">
+      <created>1633733388009</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1633733388009</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,6 +146,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Typo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Typo" />
+    <MESSAGE value="Project restructure, Basic UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project restructure, Basic UI" />
   </component>
 </project>
