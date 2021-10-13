@@ -1,10 +1,11 @@
+import io.javalin.Javalin;
+
 public class Server {
 
     public static void main(String[] args) {
-        HelloWorld();
+        Javalin app = Javalin.create().start(7000);
+        app.get("/", ctx -> ctx.result("OK"));
     }
 
-    public static void HelloWorld() {
-        System.out.println("Hello World\n");
-    }
+
 }

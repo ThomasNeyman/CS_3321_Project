@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="141.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs3321.client.ConnectionController">
+    <children>
+        <TextField fx:id="url" layoutX="121.0" layoutY="26.0" prefHeight="35.0" prefWidth="342.0">
+            <font>
+                <Font name="Arial Bold" size="13.0" />
+            </font></TextField>
+        <Label layoutX="4.0" layoutY="26.0" prefHeight="35.0" prefWidth="117.0" text="Server Address :">
+            <font>
+                <Font name="Arial Bold" size="14.0" />
+            </font>
+        </Label>
+        <Button fx:id="connect" layoutX="403.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Connect">
+            <font>
+                <Font name="Arial Bold" size="13.0" />
+            </font>
+        </Button>
+        <Button fx:id="reset" layoutX="298.0" layoutY="107.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Reset">
+            <font>
+                <Font name="Arial Bold" size="13.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
