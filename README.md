@@ -15,10 +15,10 @@ Implementation for a Monopoly game using microservices to communicate between a 
 ## Usage
 
 ## Team
-Thomas Neyman - Product Owner  
-Caleb Eardley - Scrum Master  
-Garrett Stouffer  
-Pawan Kandel 
+Thomas Neyman
+Caleb Eardley
+Garrett Stouffer - Scrum Master  
+Pawan Kandel - Product Owner
 
 ## Technologies Used
 Programming Language - Java (front and back)
