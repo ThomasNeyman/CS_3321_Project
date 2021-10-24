@@ -3,12 +3,16 @@ using https://junit.org/junit5/docs/current/user-guide/#writing-tests for test g
 https://javalin.io/tutorials/testing for javalin testing
  */
 
+package tests;
+
+import cs3321.*;
+import Game.*;
 import org.junit.jupiter.api.*;
 //import static org.assertj.core.api.Assertions.*;
 
-public class UnitTests {
+public class ServerTests {
 
-    //region Server tests
+    //region cs3321.Server tests
 
     private static final Server server = new Server();
 
@@ -34,33 +38,4 @@ public class UnitTests {
     }
 
     //endregion
-
-    //region player tests
-
-    //endregion
-
-    //region Monopoly tests
-
-    //endregion
-
-    //region card tests
-
-    //endregion
-
-    //region chance tests
-
-    //endregion
-
-    //region community chest tests
-
-    //endregion
-
-    //region Tax tests
-
-    //endregion
-
-    //region square tests
-
-    //endregion
-
 }

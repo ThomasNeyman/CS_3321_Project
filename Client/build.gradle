@@ -32,6 +32,9 @@ javafx {
   modules = ['javafx.controls', 'javafx.fxml','javafx.graphics']
 }
 
+task prepareKotlinBuildScriptModel {
+}
+
 dependencies {
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")

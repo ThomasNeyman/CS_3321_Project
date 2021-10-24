@@ -1,3 +1,5 @@
+package cs3321;
+
 import io.javalin.Javalin;
 
 public class Server {
