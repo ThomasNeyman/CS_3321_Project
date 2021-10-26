@@ -12,6 +12,8 @@ public class State {
     private int turn;
     private int communityChest;
     private boolean hasWon;
+    private boolean turnTaken;
+    private Property propertyAvailable;
 
     //Constructor
     public State(){
@@ -56,6 +58,19 @@ public class State {
     public int getWinner(){
         return 2;
     }
+    //getter and setter for turnTaken value
+    public boolean isTurnTaken() {
+        return turnTaken;
+    }
+    public void setTurnTaken(boolean turnTaken) {
+        this.turnTaken = turnTaken;
+    }
+    //getter and setter for available property
 
-
+    public Property getPropertyAvailable() {
+        return propertyAvailable;
+    }
+    public void setPropertyAvailable(Property propertyAvailable) {
+        this.propertyAvailable = propertyAvailable;
+    }
 }

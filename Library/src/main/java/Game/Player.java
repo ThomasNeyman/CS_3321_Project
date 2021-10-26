@@ -1,13 +1,15 @@
 package Game;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Player {
     private int playerNumber;
     private int Bank;
     private int Position;
-    private Property[] playerProperties;
+    private ArrayList<Property> playerProperties = new ArrayList<>();
     private boolean inJail;
+    private boolean hasGOJFC;
 
     //Getters
     public int getPlayerNumber() {
@@ -19,7 +21,7 @@ public class Player {
     public int getPosition() {
         return Position;
     }
-    public Property[] getPlayerProperties() {
+    public ArrayList<Property> getPlayerProperties() {
         return playerProperties;
     }
     //Setters
@@ -27,7 +29,32 @@ public class Player {
         Bank = bank;
     }
 
-    public void movePosition(int roll){
+    public void setPosition(int position) {
+        Position = position;
+    }
 
+    public void movePosition(int roll){
+        setPosition(getPosition()+roll);
+    }
+    //getters and setter for inJail
+
+    public boolean isInJail() {
+        return inJail;
+    }
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
+    }
+
+    //getters and setters for GOJFC
+
+    public boolean isHasGOJFC() {
+        return hasGOJFC;
+    }
+    public void setHasGOJFC(boolean hasGOJFC) {
+        this.hasGOJFC = hasGOJFC;
+    }
+    // method to add property
+    public void addProperty(Property prop){
+        playerProperties.add(prop);
     }
 }
