@@ -16,11 +16,11 @@ public class Monopoly {
     }
     public void updatePlayerPosition(int diceRoll, int playerNumber){
         //determines which player is being moved
-        if (gameState.getTurn == 0){Player p = gameState.getPlayerOne();}
-        if (gameState.getTurn == 1){Player p = gameState.getPlayerTwo();}
+        if (gameState.getTurn() == 0){Player p = gameState.getPlayerOne();}
+        if (gameState.getTurn() == 1){Player p = gameState.getPlayerTwo();}
         p.movePosition(diceRoll);
         //cases for each of the potential spots to land on
-        switch (p.getPosition){
+        switch (p.getPosition()){
             case 0:
                 p.setBank(p.getBank+200);
                 gameState.changeTurn();
