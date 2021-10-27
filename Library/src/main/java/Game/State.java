@@ -1,7 +1,6 @@
 package Game;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 
 public class State {
@@ -11,7 +10,7 @@ public class State {
     private Player playerOne;
     private Player playerTwo;
     private Property[] propertyList;
-    private int[] chanceCardIndex;
+    private ArrayList<Integer> chanceCardIndex;
     private int turn;
     private int communityChest;
     private boolean hasWon;
@@ -21,7 +20,8 @@ public class State {
 
     //Constructor
     public State(){
-        this.chanceCardIndex = new int[CHANCE_DECK_LENGTH];
+        //create chance card lit, will be filled by the monopoly state whenever it is empty
+        chanceCardIndex = new ArrayList<>();
         //creation of propertyList
         this.propertyList = new Property[16];
         this.propertyList[0]= new Property(60,40,0);
@@ -59,9 +59,6 @@ public class State {
     public Property[] getPropertyList() {
         return propertyList;
     }
-    public int[] getChanceCardIndex() {
-        return chanceCardIndex;
-    }
     public int getTurn() {
         //if x is 0 then it is Player 1 turn if x is 1 it is player 2s turn
         int x = turn%2;
@@ -73,6 +70,8 @@ public class State {
     public int getCHANCE_DECK_LENGTH() {
         return CHANCE_DECK_LENGTH;
     }
+    public ArrayList<Integer> getChanceCardIndex(){return chanceCardIndex;}
+
 
     //Setters
     public void setPropertyList(Property[] propertyList) {
@@ -110,22 +109,17 @@ public class State {
 
     // Chance functions
     public void addChanceCardIndex(int i) {
-        chanceCardIndex[i] = i;
+        chanceCardIndex.add(i);
     }
 
     // In order to remove a card from the array, we create another array with length
     // one less than the original array. Then, we copy all the contents of the array
     // except the index we are removing. Then, set the original array equal to the
     // newly created array.
-    public void removeChanceCard(int randomCard) {
-        int[] arrayCopy = new int[chanceCardIndex.length - 1];
-
-        for (int i = 0, j = 0; i < chanceCardIndex.length - 1; i++) {
-            if (i != randomCard) {
-                arrayCopy[j++] = chanceCardIndex[i];
-            }
-        }
-        chanceCardIndex = arrayCopy;
+    public int removeChanceCard(int randomCard) {
+        int temp = chanceCardIndex.get(randomCard);
+        chanceCardIndex.remove(randomCard);
+        return temp;
     }
 
     //getters and setters for chance card description

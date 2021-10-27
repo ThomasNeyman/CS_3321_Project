@@ -163,17 +163,17 @@ public class Monopoly {
     }
 
     private void drawRandomCard(Player p) throws Exception {
-        if(gameState.getChanceCardIndex().length == 0){
+        if(gameState.getChanceCardIndex().size() == 0){
             for(int i = 0; i < gameState.getCHANCE_DECK_LENGTH(); i++){
                 gameState.addChanceCardIndex(i+1);
             }
         }
-        int randomCard = ThreadLocalRandom.current().nextInt(0,gameState.getChanceCardIndex().length);
+        int randomindex = ThreadLocalRandom.current().nextInt(0,gameState.getChanceCardIndex().size());
         // This function simply removes the chance card just drawn from the array. This
         // ensures duplicates won't be drawn
-        gameState.removeChanceCard(randomCard);
+        int card = gameState.removeChanceCard(randomindex);
         // This function executes the chosen chance card on the player
-        Chance.getChanceResult(randomCard, p,gameState);
+        Chance.getChanceResult(card, p,gameState);
         updatePlayerPosition(0);
 
     }
