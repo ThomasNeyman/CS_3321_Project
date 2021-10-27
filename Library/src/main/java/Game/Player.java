@@ -11,6 +11,14 @@ public class Player {
     private boolean inJail;
     private boolean hasGOJFC;
 
+    public Player(int playerNumber, int bank, int position){
+        this.playerNumber = playerNumber;
+        Bank = bank;
+        Position = position;
+        this.inJail = false;
+        this.hasGOJFC = false;
+    }
+
     //Getters
     public int getPlayerNumber() {
         return playerNumber;

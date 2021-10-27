@@ -1,12 +1,12 @@
 package Game;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 
 public class State {
     //constants
     private final int CHANCE_DECK_LENGTH = 5;
-
     //instance variables
     private Player playerOne;
     private Player playerTwo;
@@ -21,6 +21,28 @@ public class State {
     //Constructor
     public State(){
         this.chanceCardIndex = new int[CHANCE_DECK_LENGTH];
+        //creation of propertyList
+        this.propertyList = new Property[16];
+        this.propertyList[0]= new Property(60,40,0);
+        this.propertyList[1]= new Property(60,45,1);
+        this.propertyList[2]= new Property(100,60,2);
+        this.propertyList[3]= new Property(100,70,3);
+        this.propertyList[4]= new Property(150,100,4);
+        this.propertyList[5]= new Property(150,110,5);
+        this.propertyList[6]= new Property(175,115,6);
+        this.propertyList[7]= new Property(175,120,7);
+        this.propertyList[8]= new Property(200,125,8);
+        this.propertyList[9]= new Property(200,130,9);
+        this.propertyList[10]= new Property(250,150,10);
+        this.propertyList[11]= new Property(250,160,11);
+        this.propertyList[12]= new Property(300,200,12);
+        this.propertyList[13]= new Property(300,220,13);
+        this.propertyList[14]= new Property(350,275,14);
+        this.propertyList[15]= new Property(400,300,15);
+        //creation of the Players
+        this.playerOne = new Player(0,200,0);
+        this.playerTwo = new Player(1,200,0);
+
         this.turn = 0;
         this.communityChest=0;
         this.hasWon=false;
@@ -103,4 +125,19 @@ public class State {
         chanceCardIndex = arrayCopy;
     }
 
+    @Override
+    public String toString() {
+        return "State{" +
+                "CHANCE_DECK_LENGTH=" + CHANCE_DECK_LENGTH +
+                ", playerOne=" + playerOne +
+                ", playerTwo=" + playerTwo +
+                ", propertyList=" + Arrays.toString(propertyList) +
+                ", chanceCardIndex=" + Arrays.toString(chanceCardIndex) +
+                ", turn=" + turn +
+                ", communityChest=" + communityChest +
+                ", hasWon=" + hasWon +
+                ", turnTaken=" + turnTaken +
+                ", propertyAvailable=" + propertyAvailable +
+                '}';
+    }
 }

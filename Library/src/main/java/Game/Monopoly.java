@@ -161,7 +161,6 @@ public class Monopoly {
                 gameState.addChanceCardIndex(i);
             }
         }
-
         int randomCard = ThreadLocalRandom.current().nextInt(0,gameState.getChanceCardIndex().length);
         // This function simply removes the chance card just drawn from the array. This
         // ensures duplicates won't be drawn
@@ -178,14 +177,14 @@ public class Monopoly {
         return;
     }
 
-    /* Just commented out for now
+
 
     //What happens if a player buys a propery
     public void updatePlayerProperty(Property prop, int playerNum){
         //which player is buying the property
         Player p = null;
-        if (playerNum == 0){Player p = gameState.getPlayerOne();}
-        if (playerNum == 1){Player p = gameState.getPlayerTwo();}
+        if (playerNum == 0){p = gameState.getPlayerOne();}
+        if (playerNum == 1){p = gameState.getPlayerTwo();}
         p.addProperty(prop);
         gameState.setPropertyAvailable(null);
         if(gameState.isTurnTaken()){
@@ -194,7 +193,7 @@ public class Monopoly {
 
     }
 
-     */
+
 
     //if the player doesn't want to buy the property the client
     //will call this, which should change the turn to the next player
@@ -204,5 +203,10 @@ public class Monopoly {
          gameState.changeTurn();
      }
 
-
+    @Override
+    public String toString() {
+        return "Monopoly{" +
+                "gameState=" + gameState +
+                '}';
+    }
 }
