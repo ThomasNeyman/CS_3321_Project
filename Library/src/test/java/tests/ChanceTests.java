@@ -106,4 +106,17 @@ public class ChanceTests {
         // and is actually catching the expected error behavior
     }
 
+    @Test
+    @DisplayName("Test many Chance cards at once")
+    public void testMultipleDraw() throws Exception {
+        Chance.getChanceResult(1, p);
+        Chance.getChanceResult(2, p);
+        Chance.getChanceResult(3, p);
+
+        Assertions.assertEquals(5, p.getPosition());
+        Assertions.assertEquals(1700, p.getBank());
+        // Player should have moved to GO, then Boardwalk, the Illinois Ave
+        // with +$200 in their bank
+    }
+
 }
