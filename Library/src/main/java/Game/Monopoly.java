@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Monopoly {
 
+
     // state of the game
     private State gameState;
     //constructor
@@ -24,7 +25,7 @@ public class Monopoly {
     }
 
     //for use when the player needs to move position
-    public void updatePlayerPosition(int diceRoll, int playerNumber){
+    public void updatePlayerPosition(int diceRoll, int playerNumber) throws Exception {
         //makes sure dice isn't rolled more than once
         if(diceRoll != 0 && gameState.isTurnTaken()){return;}
         //determines which player is being moved
@@ -154,16 +155,19 @@ public class Monopoly {
         return;
     }
 
-    private void drawRandomCard(Player p){
+    private void drawRandomCard(Player p) throws Exception {
         if(gameState.getChanceCardIndex().length == 0){
-            for(int i = 0; i<5; i++){
+            for(int i = 0; i < gameState.getCHANCE_DECK_LENGTH(); i++){
                 gameState.addChanceCardIndex(i);
             }
         }
+
         int randomCard = ThreadLocalRandom.current().nextInt(0,gameState.getChanceCardIndex().length);
-        int chanceCard = gameState.getChanceCard()[randCard];
-        gameState.removeChanceChard(chanceCard);
-        Chance.getChanceResult(chanceCard, p);
+        // This function simply removes the chance card just drawn from the array. This
+        // ensures duplicates won't be drawn
+        gameState.removeChanceCard(randomCard);
+        // This function executes the chosen chance card on the player
+        Chance.getChanceResult(randomCard, p);
 
     }
     //taxes a player when a tax square is landed on, and adds tax to community chest
@@ -173,6 +177,8 @@ public class Monopoly {
         gameState.changeTurn();
         return;
     }
+
+    /* Just commented out for now
 
     //What happens if a player buys a propery
     public void updatePlayerProperty(Property prop, int playerNum){
@@ -186,8 +192,9 @@ public class Monopoly {
             gameState.changeTurn();
         }
 
-
     }
+
+     */
 
     //if the player doesn't want to buy the property the client
     //will call this, which should change the turn to the next player
@@ -197,5 +204,5 @@ public class Monopoly {
          gameState.changeTurn();
      }
 
-     */
+
 }
