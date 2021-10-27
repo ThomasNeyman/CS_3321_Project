@@ -11,6 +11,7 @@ public class Monopoly {
     private State gameState;
     //constructor
     public Monopoly() {
+        gameState = new State();
     }
     public Monopoly(State gameState){
         this.gameState = gameState;
@@ -25,29 +26,35 @@ public class Monopoly {
     }
 
     //for use when the player needs to move position
-    public void updatePlayerPosition(int diceRoll, int playerNumber) throws Exception {
+    public void updatePlayerPosition(int diceRoll){
         //makes sure dice isn't rolled more than once
         if(diceRoll != 0 && gameState.isTurnTaken()){return;}
         //determines which player is being moved
-        Player p = null;
+        Player p;
         if (gameState.getTurn() == 0){p = gameState.getPlayerOne();}
-        if (gameState.getTurn() == 1){p = gameState.getPlayerTwo();}
+        else{p = gameState.getPlayerTwo();}
         int oldPos = p.getPosition();
         p.movePosition(diceRoll);
         // check if you pass go
-        if(oldPos<p.getPosition()){
+        if(oldPos>p.getPosition()){
             p.setBank(p.getBank()+200);
         }
+        gameState.setTurnTaken(true);
         //switch cases for each of the potential spots to land on
         switch (p.getPosition()){
             case 0:
             case 7:
+                gameState.changeTurn();
                 return;
             case 1:
             case 8:
             case 15:
             case 22:
-                drawRandomCard(p);
+                try {
+                    drawRandomCard(p);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case 2:
                 onProperty(p,0);
@@ -158,7 +165,7 @@ public class Monopoly {
     private void drawRandomCard(Player p) throws Exception {
         if(gameState.getChanceCardIndex().length == 0){
             for(int i = 0; i < gameState.getCHANCE_DECK_LENGTH(); i++){
-                gameState.addChanceCardIndex(i);
+                gameState.addChanceCardIndex(i+1);
             }
         }
         int randomCard = ThreadLocalRandom.current().nextInt(0,gameState.getChanceCardIndex().length);
@@ -166,7 +173,8 @@ public class Monopoly {
         // ensures duplicates won't be drawn
         gameState.removeChanceCard(randomCard);
         // This function executes the chosen chance card on the player
-        Chance.getChanceResult(randomCard, p);
+        Chance.getChanceResult(randomCard, p,gameState);
+        updatePlayerPosition(0);
 
     }
     //taxes a player when a tax square is landed on, and adds tax to community chest
@@ -186,6 +194,7 @@ public class Monopoly {
         if (playerNum == 0){p = gameState.getPlayerOne();}
         if (playerNum == 1){p = gameState.getPlayerTwo();}
         p.addProperty(prop);
+        p.setBank(p.getBank()-prop.getCost());
         gameState.setPropertyAvailable(null);
         if(gameState.isTurnTaken()){
             gameState.changeTurn();

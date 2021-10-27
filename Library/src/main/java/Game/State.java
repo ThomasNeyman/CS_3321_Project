@@ -17,6 +17,7 @@ public class State {
     private boolean hasWon;
     private boolean turnTaken;
     private Property propertyAvailable;
+    private String chanceCardDescription;
 
     //Constructor
     public State(){
@@ -84,6 +85,8 @@ public class State {
     //changeturn method to use whenever a player ends their turn.
     public void changeTurn(){
         turn++;
+        turn = turn%2;
+        setTurnTaken(false);
     }
     public int getWinner(){
         return 2;
@@ -125,19 +128,33 @@ public class State {
         chanceCardIndex = arrayCopy;
     }
 
+    //getters and setters for chance card description
+
+
+    public String getChanceCardDescription() {
+        return chanceCardDescription;
+    }
+
+    public void setChanceCardDescription(String chanceCardDescription) {
+        this.chanceCardDescription = chanceCardDescription;
+    }
+
     @Override
     public String toString() {
-        return "State{" +
+        String s = "State{" +
                 "CHANCE_DECK_LENGTH=" + CHANCE_DECK_LENGTH +
-                ", playerOne=" + playerOne +
-                ", playerTwo=" + playerTwo +
-                ", propertyList=" + Arrays.toString(propertyList) +
-                ", chanceCardIndex=" + Arrays.toString(chanceCardIndex) +
+                ", playerOne=" + playerOne.getPosition() +","+playerOne.getBank() +
+                ", playerTwo=" + playerTwo.getPosition() +","+playerTwo.getBank() +
                 ", turn=" + turn +
                 ", communityChest=" + communityChest +
                 ", hasWon=" + hasWon +
-                ", turnTaken=" + turnTaken +
-                ", propertyAvailable=" + propertyAvailable +
-                '}';
+                ", turnTaken=" + turnTaken;
+        if (propertyAvailable != null){
+            s = s+", propertyAvailable=" + propertyAvailable.getPosition()+"}";
+         }else{
+            s = s+", propertyAvailable=" + null +"}";
+        }
+        return s;
+
     }
 }
