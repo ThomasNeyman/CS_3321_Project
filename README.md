@@ -15,7 +15,6 @@ Implementation for a Monopoly game using microservices to communicate between a 
 ## Installation
 ## Usage
 
-![Project Health](docs/images/projectHealth.png)
 ## Team
 Thomas Neyman
 Caleb Eardley
@@ -23,7 +22,7 @@ Garrett Stouffer - Scrum Master
 Pawan Kandel - Product Owner
 
 ## Progress
-
+![Project Health](docs/images/projectHealth.png)
 
 ## Technologies Used
 Programming Language - Java (front and back)
