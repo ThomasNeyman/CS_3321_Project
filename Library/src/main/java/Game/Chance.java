@@ -26,6 +26,9 @@ public final class Chance {
             }
         }
     }
+    public static void getChanceResult(int card, Player player) throws Exception {
+        getChanceResult(card,player,new State());
+    }
 
     private static void chanceCard_1(Player player,State gameState) {
         // Advance to GO and collect $200

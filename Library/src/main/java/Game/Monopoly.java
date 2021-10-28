@@ -29,6 +29,7 @@ public class Monopoly {
     public void updatePlayerPosition(int diceRoll){
         //makes sure dice isn't rolled more than once
         if(diceRoll != 0 && gameState.isTurnTaken()){return;}
+        if(diceRoll != 0){gameState.setDiceValue(diceRoll);}
         //determines which player is being moved
         Player p;
         if (gameState.getTurn() == 0){p = gameState.getPlayerOne();}
@@ -66,44 +67,44 @@ public class Monopoly {
                 tax(p, 40);
                 break;
             case 5:
-                onProperty(p,3);
+                onProperty(p,2);
                 break;
             case 6:
-                onProperty(p,4);
+                onProperty(p,3);
                 break;
             case 9:
-                onProperty(p,5);
+                onProperty(p,4);
                 break;
             case 10:
-                onProperty(p,6);
+                onProperty(p,5);
                 break;
             case 11:
                 tax(p, 100);
                 break;
             case 12:
-                onProperty(p,7);
+                onProperty(p,6);
                 break;
             case 13:
-                onProperty(p, 8);
+                onProperty(p, 7);
                 break;
             case 14:
                 p.setBank(p.getBank()+gameState.getCommunityChest());
                 gameState.setCommunityChest(0);
                 break;
             case 16:
-                onProperty(p,9);
+                onProperty(p,8);
                 break;
             case 17:
-                onProperty(p,10);
+                onProperty(p,9);
                 break;
             case 18:
                 tax(p, 150);
                 break;
             case 19:
-                onProperty(p,11);
+                onProperty(p,10);
                 break;
             case 20:
-                onProperty(p,12);
+                onProperty(p,11);
                 break;
             case 21:
                 if(p.isHasGOJFC()){
@@ -114,19 +115,19 @@ public class Monopoly {
                 p.setPosition(7);
                 return;
             case 23:
-                onProperty(p,13);
+                onProperty(p,12);
                 break;
             case 24:
-                onProperty(p,14);
+                onProperty(p,13);
                 break;
             case 25:
                 tax(p,200);
                 break;
             case 26:
-                onProperty(p,15);
+                onProperty(p,14);
                 break;
             case 27:
-                onProperty(p,16);
+                onProperty(p,15);
                 break;
         }
 

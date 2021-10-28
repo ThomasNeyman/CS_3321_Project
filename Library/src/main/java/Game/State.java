@@ -17,6 +17,7 @@ public class State {
     private boolean turnTaken;
     private Property propertyAvailable;
     private String chanceCardDescription;
+    private int diceValue;
 
     //Constructor
     public State(){
@@ -43,7 +44,8 @@ public class State {
         //creation of the Players
         this.playerOne = new Player(0,200,0);
         this.playerTwo = new Player(1,200,0);
-
+        //starting dice
+        this.diceValue=5;
         this.turn = 0;
         this.communityChest=0;
         this.hasWon=false;
@@ -71,7 +73,9 @@ public class State {
         return CHANCE_DECK_LENGTH;
     }
     public ArrayList<Integer> getChanceCardIndex(){return chanceCardIndex;}
-
+    public int getDiceValue() {
+        return diceValue;
+    }
 
     //Setters
     public void setPropertyList(Property[] propertyList) {
@@ -79,6 +83,10 @@ public class State {
     }
     public void setCommunityChest(int communityChest) {
         this.communityChest = communityChest;
+    }
+
+    public void setDiceValue(int diceValue) {
+        this.diceValue = diceValue;
     }
 
     //changeturn method to use whenever a player ends their turn.

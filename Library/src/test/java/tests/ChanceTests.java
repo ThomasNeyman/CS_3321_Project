@@ -15,7 +15,7 @@ public class ChanceTests {
 
     @BeforeEach
     public void setUp() {
-        p = new Player();
+        p = new Player(0,0,1500);
         p.setPosition(0);
         p.setBank(1500);
         p.setHasGOJFC(false);

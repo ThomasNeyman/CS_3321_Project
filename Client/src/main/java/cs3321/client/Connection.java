@@ -17,6 +17,7 @@ public class Connection {
     public void initialize(String url){
         this.url = url;
         client = HttpClient.newBuilder().build();
+
     }
 
     public HttpRequest createGet(String url){
