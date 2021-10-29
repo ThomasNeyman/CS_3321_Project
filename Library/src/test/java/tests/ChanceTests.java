@@ -1,13 +1,7 @@
-/*
-Testing class for the Chance Class
-https://junit.org/junit5/docs/5.0.1/api/org/junit/jupiter/api/Assertions.html
-*/
-
 package tests;
 
 import Game.*;
 import org.junit.jupiter.api.*;
-//import static org.assertj.core.api.Assertions.*;
 
 public class ChanceTests {
 
