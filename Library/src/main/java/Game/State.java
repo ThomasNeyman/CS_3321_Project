@@ -41,9 +41,9 @@ public class State {
         this.propertyList[13]= new Property(300,220,13);
         this.propertyList[14]= new Property(350,275,14);
         this.propertyList[15]= new Property(400,300,15);
-        //creation of the Players
-        this.playerOne = new Player(0,200,0);
-        this.playerTwo = new Player(1,200,0);
+        //creation of the Players: players should start with 1500$ in bank
+        this.playerOne = new Player(0,1500,0);
+        this.playerTwo = new Player(1,1500,0);
         //starting dice
         this.diceValue=5;
         this.turn = 0;
@@ -120,10 +120,6 @@ public class State {
         chanceCardIndex.add(i);
     }
 
-    // In order to remove a card from the array, we create another array with length
-    // one less than the original array. Then, we copy all the contents of the array
-    // except the index we are removing. Then, set the original array equal to the
-    // newly created array.
     public int removeChanceCard(int randomCard) {
         int temp = chanceCardIndex.get(randomCard);
         chanceCardIndex.remove(randomCard);
