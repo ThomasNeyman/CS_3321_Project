@@ -20,49 +20,49 @@
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="1" fx:id="s0" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="28.0" layoutY="27.0" prefHeight="22.0" prefWidth="20.0" text="Go" wrapText="true" />
+                        <Label fx:id="l0" layoutX="28.0" layoutY="27.0" prefHeight="22.0" prefWidth="20.0" text="Go" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="2" fx:id="s1" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="10.0" layoutY="30.0" prefHeight="16.0" prefWidth="55.0" text="Chance" wrapText="true" />
+                        <Label fx:id="l1" layoutX="10.0" layoutY="30.0" prefHeight="16.0" prefWidth="55.0" text="Chance" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="3" fx:id="s2" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="25.0" layoutY="30.0" text="\$60" wrapText="true" />
+                        <Label fx:id="l2" layoutX="25.0" layoutY="30.0" text="\$60" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="4" fx:id="s3" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="25.0" layoutY="30.0" text="\$60" wrapText="true" />
+                        <Label fx:id="l3" layoutX="25.0" layoutY="30.0" text="\$60" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="5" fx:id="s4" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="7.0" layoutY="30.0" text="Tax - $40" wrapText="true" />
+                        <Label fx:id="l4" layoutX="7.0" layoutY="30.0" text="Tax - $40" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="6" fx:id="s5" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="21.0" layoutY="30.0" text="\$100" wrapText="true" />
+                        <Label fx:id="l5" layoutX="21.0" layoutY="30.0" text="\$100" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="7" fx:id="s6" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="21.0" layoutY="30.0" text="\$100" wrapText="true" />
+                        <Label fx:id="l6" layoutX="21.0" layoutY="30.0" text="\$100" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="8" fx:id="s7" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="28.0" layoutY="30.0" text="Jail" wrapText="true" />
+                        <Label fx:id="l7" layoutX="28.0" layoutY="30.0" text="Jail" wrapText="true" />
                      </children>
                   </Pane>
                </children>
@@ -74,49 +74,49 @@
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="22" fx:id="s21" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="8.0" layoutY="30.0" text="Go to Jail" wrapText="true" />
+                        <Label fx:id="l21" layoutX="8.0" layoutY="30.0" text="Go to Jail" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="21" fx:id="s20" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$250" wrapText="true" />
+                        <Label fx:id="l20" layoutX="20.0" layoutY="30.0" text="\$250" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="20" fx:id="s19" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$250" wrapText="true" />
+                        <Label fx:id="l19" layoutX="20.0" layoutY="30.0" text="\$250" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="19" fx:id="s18" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="3.0" layoutY="30.0" text="Tax - $150" wrapText="true" />
+                        <Label fx:id="l18" layoutX="3.0" layoutY="30.0" text="Tax - $150" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="18" fx:id="s17" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$200" wrapText="true" />
+                        <Label fx:id="l17" layoutX="20.0" layoutY="30.0" text="\$200" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="17" fx:id="s16" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$200" wrapText="true" />
+                        <Label fx:id="l16" layoutX="20.0" layoutY="30.0" text="\$200" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="16" fx:id="s15" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="13.0" layoutY="30.0" text="Chance" wrapText="true" />
+                        <Label fx:id="l15" layoutX="13.0" layoutY="30.0" text="Chance" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="15" fx:id="s14" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="11.0" layoutY="30.0" text=" Parking" wrapText="true" />
+                        <Label fx:id="l14" layoutX="11.0" layoutY="30.0" text=" Parking" wrapText="true" />
                      </children>
                   </Pane>
                </children>
@@ -128,37 +128,37 @@
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="28" fx:id="s27" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$400" wrapText="true" />
+                        <Label fx:id="l27" layoutX="20.0" layoutY="30.0" text="\$400" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="27" fx:id="s26" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$350" wrapText="true" />
+                        <Label fx:id="l26" layoutX="20.0" layoutY="30.0" text="\$350" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="26" fx:id="s25" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="3.0" layoutY="30.0" text="Tax - $200" wrapText="true" />
+                        <Label fx:id="l25" layoutX="3.0" layoutY="30.0" text="Tax - $200" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="25" fx:id="s24" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$300" wrapText="true" />
+                        <Label fx:id="l24" layoutX="20.0" layoutY="30.0" text="\$300" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="24" fx:id="s23" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$300" wrapText="true" />
+                        <Label fx:id="l23" layoutX="20.0" layoutY="30.0" text="\$300" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="23" fx:id="s22" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="13.0" layoutY="30.0" text="Chance" wrapText="true" />
+                        <Label fx:id="l22" layoutX="13.0" layoutY="30.0" text="Chance" wrapText="true" />
                      </children>
                   </Pane>
                </children>
@@ -170,37 +170,37 @@
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="9" fx:id="s8" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="13.0" layoutY="30.0" text="Chance" wrapText="true" />
+                        <Label fx:id="l8" layoutX="13.0" layoutY="30.0" text="Chance" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="10" fx:id="s9" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$150" wrapText="true" />
+                        <Label fx:id="l9" layoutX="20.0" layoutY="30.0" text="\$150" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="11" fx:id="s10" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$150" wrapText="true" />
+                        <Label fx:id="l10" layoutX="20.0" layoutY="30.0" text="\$150" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="12" fx:id="s11" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="3.0" layoutY="30.0" text="Tax - $100" wrapText="true" />
+                        <Label fx:id="l11" layoutX="3.0" layoutY="30.0" text="Tax - $100" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="13" fx:id="s12" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$175" wrapText="true" />
+                        <Label fx:id="l12" layoutX="20.0" layoutY="30.0" text="\$175" wrapText="true" />
                      </children>
                   </Pane>
                   <Pane prefHeight="75.0" prefWidth="75.0">
                      <children>
                         <Rectangle id="14" fx:id="s13" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
-                        <Label layoutX="20.0" layoutY="30.0" text="\$175" wrapText="true" />
+                        <Label fx:id="l13" layoutX="20.0" layoutY="30.0" text="\$175" wrapText="true" />
                      </children>
                   </Pane>
                </children>

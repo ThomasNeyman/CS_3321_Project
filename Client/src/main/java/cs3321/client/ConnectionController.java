@@ -2,6 +2,7 @@ package cs3321.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -15,6 +16,7 @@ public class ConnectionController implements Initializable {
 
     @FXML
     TextField url;
+    @FXML Scene scene;
 
 
     @Override
@@ -26,6 +28,8 @@ public class ConnectionController implements Initializable {
                 connection.initialize(url.getText());
                 connection.createGet(url.getText());
                 System.out.println(connection.test());
+
+
             }
         });
     }}

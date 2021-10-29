@@ -3,8 +3,10 @@ package Game;
 import java.lang.reflect.Array;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Monopoly {
+
 
     // state of the game
     private State gameState;
@@ -28,21 +30,14 @@ public class Monopoly {
     public void updatePlayerPosition(int diceRoll){
         //makes sure dice isn't rolled more than once
         if(diceRoll != 0 && gameState.isTurnTaken()){return;}
-        // THIS IF STATEMENT IS REDUNDANT. IT HAS ALREADY BEEN CHECKED IF THE DICEROLL
-        // WAS 0. IT CAN BE REMOVED
         if(diceRoll != 0){gameState.setDiceValue(diceRoll);}
         //determines which player is being moved
         Player p;
         if (gameState.getTurn() == 0){p = gameState.getPlayerOne();}
         else{p = gameState.getPlayerTwo();}
-        int oldPos = p.getPosition();
+        int oldPos = Integer.valueOf(p.getPosition());
         p.movePosition(diceRoll);
         // check if you pass go
-        // =======================================
-        // THERE WILL BE A BUG HERE. FOR EXAMPLE, PLAYER LANDS ON CHANCE CARD AND
-        // IS MOVED PASSED GO AND COLLECTS 200$ FROM CHANCE FUNCTION. THEY WILL
-        // THEN COLLECT 200$ FROM THIS LOGIC AS WELL
-        // v v v v v v v v v v v v v v v v v v v v
         if(oldPos>p.getPosition()){
             p.setBank(p.getBank()+200);
         }
@@ -51,7 +46,6 @@ public class Monopoly {
         switch (p.getPosition()){
             case 0:
             case 7:
-                gameState.changeTurn();
                 return;
             case 1:
             case 8:
@@ -149,7 +143,6 @@ public class Monopoly {
         // if the property already belongs to the player
         for(int i = 0; i < p.getPlayerProperties().size(); i++){
             if(prop.getPosition() == p.getPlayerProperties().get(i).getPosition()){
-                gameState.changeTurn();
                 return;
             }
         }
@@ -160,12 +153,12 @@ public class Monopoly {
                 int rent = tempProp.getRent();
                 p.setBank(p.getBank()-rent);
                 p2.setBank(p2.getBank()+rent);
-                gameState.changeTurn();
                 return;
             }
         }
         //if no one has the property
         gameState.setPropertyAvailable(prop);
+        return;
     }
 
     private void drawRandomCard(Player p) throws Exception {
@@ -187,11 +180,12 @@ public class Monopoly {
     private void tax(Player p, int tax){
         p.setBank(p.getBank()-tax);
         gameState.setCommunityChest(gameState.getCommunityChest()+tax);
-        gameState.changeTurn();
+        return;
     }
 
 
-    //What happens if a player buys a property
+
+    //What happens if a player buys a propery
     public void updatePlayerProperty(Property prop, int playerNum){
         //which player is buying the property
         Player p = null;
@@ -207,11 +201,13 @@ public class Monopoly {
     }
 
 
+
     //if the player doesn't want to buy the property the client
     //will call this, which should change the turn to the next player
     //and give them the option to buy the property, without ending there turn.
 
      public void denyProperty(Property prop){
+         gameState.setPropertyAvailable(null);
          gameState.changeTurn();
      }
 

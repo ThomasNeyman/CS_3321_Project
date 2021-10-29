@@ -1,7 +1,7 @@
 package cs3321;
 
 import io.javalin.Javalin;
-
+import Game.Monopoly;
 public class Server {
 
     private Javalin javalin;

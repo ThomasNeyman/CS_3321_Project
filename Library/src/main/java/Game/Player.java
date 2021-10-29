@@ -10,6 +10,7 @@ public class Player {
     private ArrayList<Property> playerProperties = new ArrayList<>();
     private boolean inJail;
     private boolean hasGOJFC;
+    private int jailCount;
 
     public Player(int playerNumber, int bank, int position){
         this.playerNumber = playerNumber;
@@ -17,6 +18,7 @@ public class Player {
         Position = position;
         this.inJail = false;
         this.hasGOJFC = false;
+
     }
 
     //Getters
@@ -42,7 +44,7 @@ public class Player {
     }
 
     public void movePosition(int roll){
-        setPosition(getPosition()+roll);
+        setPosition((getPosition()+roll)%28);
     }
     //getters and setter for inJail
 
@@ -64,5 +66,14 @@ public class Player {
     // method to add property
     public void addProperty(Property prop){
         playerProperties.add(prop);
+    }
+    //getters and setter for jail count
+
+    public int getJailCount() {
+        return jailCount;
+    }
+
+    public void setJailCount(int jailCount) {
+        this.jailCount = jailCount;
     }
 }
