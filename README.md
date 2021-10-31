@@ -6,6 +6,7 @@ Implementation for a Game game using microservices to communicate between a clie
 - [Installation](#installation)
 - [Usage](#usage)
 - [Team](#team)
+- [Progress](#progress)
 - [Technologies Used](#technologies-used)
 - [MVP Front End](#front-end)
 - [MVP Back End](#back-end)
@@ -19,6 +20,9 @@ Thomas Neyman
 Caleb Eardley
 Garrett Stouffer - Scrum Master  
 Pawan Kandel - Product Owner
+
+## Progress
+![Project Health](docs/images/projectHealth.png)
 
 ## Technologies Used
 Programming Language - Java (front and back)
