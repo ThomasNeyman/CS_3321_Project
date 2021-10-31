@@ -1,20 +1,23 @@
-/*
-The Chance class is used to randomly affect the player's position in the game.
-Contained within the class are multiple methods that do just that.
-Because java has no top-level static classes, we simulate one by making the class
-final and the constructor private so no instantiation can occur. Then all members
-are made static to simulate a static class's functionality.
-*/
-
 package Game;
 
+/**
+ * The Chance class is used to invoke different random affects on the
+ * player. The class contains a static method for each Chance card in
+ * the game. Because java has no top-level static classes, we make it
+ * final and set its constructor to private to simulate the functionality
+ * of a static class.
+ */
 public final class Chance {
 
-    ///<summary>
-    /// This method uses the new enhanced version of switch statements with Java 13
-    /// Instead of needing break statements for each case, only the case with an arrow
-    /// needs to be stated.
-    ///<\summary>
+    /**
+     * This method uses the new enhanced version of switch statements with Java 13
+     * Instead of needing break statements for each case, only the case with an arrow
+     * needs to be stated. Each case handles a different chance card pulled
+     * @param card the index of the chance card pulled
+     * @param player the player who drew the chance card
+     * @param gameState the gameState object of the game
+     * @throws Exception if a value of a Chance card is not recognized
+     */
     public static void getChanceResult(int card, Player player,State gameState) throws Exception {
         switch (card) {
             case 1 -> chanceCard_1(player,gameState);
@@ -26,10 +29,11 @@ public final class Chance {
             }
         }
     }
+
     public static void getChanceResult(int card, Player player) throws Exception {
         getChanceResult(card,player,new State());
     }
-
+    
     private static void chanceCard_1(Player player,State gameState) {
         // Advance to GO and collect $200
         player.setPosition(0);

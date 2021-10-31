@@ -2,7 +2,11 @@ package Game;
 
 import java.util.ArrayList;
 
-
+/**
+ * The state class' main function is to hold all of the information for the currently
+ * running game. This includes the players, the list of properties, whose turn is it,
+ * how much money is in the community chest, and if a player has won.
+ */
 public class State {
     //constants
     private final int CHANCE_DECK_LENGTH = 5;
@@ -90,11 +94,17 @@ public class State {
     }
 
     //changeturn method to use whenever a player ends their turn.
+
+    /**
+     * Function handles switching the player's turns. There are only
+     * 2 players right now, so a modulus by 2 works to determine this
+     */
     public void changeTurn(){
         turn++;
         turn = turn%2;
         setTurnTaken(false);
     }
+
     public int getWinner(){
         return 2;
     }
@@ -120,10 +130,13 @@ public class State {
         chanceCardIndex.add(i);
     }
 
-    // In order to remove a card from the array, we create another array with length
-    // one less than the original array. Then, we copy all the contents of the array
-    // except the index we are removing. Then, set the original array equal to the
-    // newly created array.
+    /**
+     * When a chance card is being invoked, it needs to be removed from the
+     * deck. This function is called by Monopoly and will remove the chosen
+     * random chance card from the Chance deck stored in this State class.
+     * @param randomCard The randomly chosen chance card by the Monopoly class
+     * @return the idnex of the removed card
+     */
     public int removeChanceCard(int randomCard) {
         int temp = chanceCardIndex.get(randomCard);
         chanceCardIndex.remove(randomCard);
@@ -131,8 +144,6 @@ public class State {
     }
 
     //getters and setters for chance card description
-
-
     public String getChanceCardDescription() {
         return chanceCardDescription;
     }
@@ -140,6 +151,7 @@ public class State {
     public void setChanceCardDescription(String chanceCardDescription) {
         this.chanceCardDescription = chanceCardDescription;
     }
+
     //method to get the player whos current turn it is
     public Player getCurrentPlayer(){
         if (turn == 0){return playerOne;}

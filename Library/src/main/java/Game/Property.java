@@ -1,5 +1,10 @@
 package Game;
 
+/**
+ * The property class simply holds the information necessary for each
+ * property in the game. This includes their cost, rent, and position
+ * on the board.
+ */
 public class Property{
     //instance variables
     private int cost;

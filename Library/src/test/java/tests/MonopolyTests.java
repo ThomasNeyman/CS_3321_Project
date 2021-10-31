@@ -19,7 +19,7 @@ public class MonopolyTests {
 
     @Test
     @DisplayName("Test for player landing on chance space and drawing a card")
-    public void testChanceCardDraw_WILLFAIL() {
+    public void testChanceCardDraw() {
         // The Chance deck hasn't been filled yet, so it should be empty
         Assertions.assertEquals(0, m.getGameState().getChanceCardIndex().size());
         m.getGameState().getPlayerOne().setPosition(20);
@@ -138,6 +138,17 @@ public class MonopolyTests {
         // It should now be player 2's turn
         Assertions.assertEquals(1, m.getGameState().getTurn());
         Assertions.assertFalse(m.getGameState().isTurnTaken());
+    }
+
+    @Test
+    @DisplayName("Test for buying property without enough money")
+    public void testUpdatePlayerProperty() {
+        // set player's bank to only 5
+        m.getGameState().getPlayerOne().setBank(5);
+        m.updatePlayerProperty(m.getGameState().getPropertyList()[0], 0);
+        // The player should not have been allowed to buy the property and their
+        // bank value should not have changed
+        Assertions.assertEquals(5, m.getGameState().getPlayerOne().getBank());
     }
 
     @Test

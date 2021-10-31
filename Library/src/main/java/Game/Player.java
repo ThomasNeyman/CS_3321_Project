@@ -3,6 +3,11 @@ package Game;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * The player class contains all the data that belongs to the player. This includes
+ * their position, bank currency, Number (refers to order), property list, and other
+ * info like if they contain the Get Out Of Jail Free card or if they're in Jail.
+ */
 public class Player {
     private int playerNumber;
     private int Bank;
