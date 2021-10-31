@@ -8,3 +8,4 @@
  */
 
 rootProject.name = 'CS_3321_Project'
+include 'Client', 'Server', 'Library'

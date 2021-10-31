@@ -32,13 +32,22 @@ javafx {
   modules = ['javafx.controls', 'javafx.fxml','javafx.graphics']
 }
 
+task prepareKotlinBuildScriptModel {
+}
+
 dependencies {
+  //library dependency
+  implementation project(":Library")
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
   implementation 'com.google.guava:guava:30.1.1-jre'
+
 }
+
+
+
 
 test {
   useJUnitPlatform()  }

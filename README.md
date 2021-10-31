@@ -1,6 +1,6 @@
 # CS_3321_Project
 ## Description
-Implementation for a Monopoly game using microservices to communicate between a client and a server. Two Players from different computers will be able to play a version of Monopoly via a cloud server.
+Implementation for a Game game using microservices to communicate between a client and a server. Two Players from different computers will be able to play a version of Game via a cloud server.
 
 ## Table of Contents
 - [Installation](#installation)
