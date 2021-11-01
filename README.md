@@ -16,10 +16,10 @@ Implementation for a Game game using microservices to communicate between a clie
 ## Usage
 
 ## Team
-Thomas Neyman
-Caleb Eardley
-Garrett Stouffer - Scrum Master  
-Pawan Kandel - Product Owner
+Thomas Neyman - Scrum Master
+Caleb Eardley - Product Owner
+Garrett Stouffer 
+Pawan Kandel
 
 ## Progress
 ![Project Health](docs/images/projectHealth.png)
