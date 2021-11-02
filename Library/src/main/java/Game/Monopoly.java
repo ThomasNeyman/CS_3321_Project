@@ -175,6 +175,7 @@ public class Monopoly {
         for(int i = 0; i < p2.getPlayerProperties().size(); i++){
             Property tempProp = p2.getPlayerProperties().get(i);
             if(prop.getPosition() == tempProp.getPosition()){
+                // accounting for number of houses
                 int rent = tempProp.getRent();
                 p.setBank(p.getBank()-rent);
                 p2.setBank(p2.getBank()+rent);
@@ -243,7 +244,42 @@ public class Monopoly {
         if(gameState.isTurnTaken()){
             gameState.changeTurn();
         }
+    }
 
+    /**
+     * This function handles a player buying a house on a property. They can call this
+     * function at any time during their turn. This function should be able to be called
+     * from the UI at any point during the player's turn.
+     * @param prop the property the player wants to add a house to
+     * @param playerNum the player whose turn it is
+     */
+    public void updatePropertyHouseNumber(Property prop, int playerNum) {
+        // which player is building a house
+        Player p = null;
+        if (playerNum == 0){p = gameState.getPlayerOne();}
+        if (playerNum == 1){p = gameState.getPlayerTwo();}
+
+        if (prop.getNumberOfHouses() < 3) {
+            if (p.getBank() >= prop.getHouseCost()) {
+                p.setBank(p.getBank() - prop.getHouseCost());
+                prop.incrementHouseNumber();
+            } else {
+                // Send message to UI saying you can't afford to build a house
+            }
+        }
+        else {
+            // send message to UI saying they have the max number of houses
+        }
+    }
+
+    /**
+     * This function be called when the player decides to manually end their turn
+     * and the State.changeTurn() function can be called. The player's turn
+     * shouldn't end until they hit an 'end turn' button and this function is called.
+     */
+    public void endTurn() {
+        gameState.changeTurn();
+        // then call a function that handles the player's turn
     }
 
     /**
