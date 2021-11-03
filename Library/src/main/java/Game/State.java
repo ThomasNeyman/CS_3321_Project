@@ -115,10 +115,6 @@ public class State {
         setTurnTaken(false);
     }
 
-    public int getWinner(){
-        return 2;
-    }
-
     //getter and setter for turnTaken value
     public boolean isTurnTaken() {
         return turnTaken;

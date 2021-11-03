@@ -269,7 +269,14 @@
                               <Label fx:id="communityChest" layoutX="84.0" layoutY="217.0" text="\$0" />
                            </children>
                         </Pane>
-                     </children></StackPane>
+                        <Pane>
+                           <children>
+                              <Button fx:id="buildHouse" contentDisplay="CENTER" layoutX="45" layoutY="350" mnemonicParsing="false" onAction="#buildHouse" prefHeight="50" prefWidth="100"
+                              text="Build House"/>
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
                </children>
             </HBox>
          </center>

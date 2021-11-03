@@ -1,11 +1,14 @@
 package cs3321.client;
 
+import Game.*;
 import Game.Monopoly;
 import Game.gameC;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
@@ -92,6 +95,8 @@ public class ClientController {
 
     @FXML private Label turn;
 
+    private ObservableList propertyList;
+
 
 
 
@@ -109,9 +114,36 @@ public class ClientController {
     }*/
     @FXML
     protected void endTurn() {
-        System.out.println("The button was pressed");
-        gameC.game.endTurn();
-        update(gameC.game.getGameState());
+        if (!gameC.game.getGameState().getHasRolledDice()) {
+            Alert notRolledDice = new Alert(Alert.AlertType.WARNING, "You can't end your turn without rolling the dice!!!", ButtonType.OK);
+            notRolledDice.show();
+        } else {
+            gameC.game.endTurn();
+            update(gameC.game.getGameState());
+        }
+    }
+
+    @FXML
+    protected void buildHouse() {
+        // determine which property the player wants to build houses on
+        /*
+        ListView listView = new ListView(propertyList);
+        propertyList.addAll(gameC.state.getCurrentPlayer().getPlayerProperties());
+        Property prop;
+         */
+        Property prop = new Property(60, 60 ,0);
+
+        if (gameC.state.getCurrentPlayer().getBank() > prop.getHouseCost()) {
+            if (prop.getNumberOfHouses() != 3) {
+                gameC.game.updatePropertyHouseNumber(prop);
+            } else {
+                Alert tooManyHouses = new Alert(Alert.AlertType.WARNING, "This property already has the maximum number of houses!", ButtonType.OK);
+                tooManyHouses.show();
+            }
+        } else {
+            Alert canNotAfford = new Alert(Alert.AlertType.WARNING, "You can't afford to build a house on " + prop.getPosition(), ButtonType.OK);
+            canNotAfford.show();
+        }
     }
 
     @FXML

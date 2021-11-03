@@ -49,9 +49,7 @@ public class Monopoly {
         // indicate the current player has rolled the dice this turn
         gameState.setHasRolledDice(true);
         //determines which player is being moved
-        Player p;
-        if (gameState.getTurn() == 0){p = gameState.getPlayerOne();}
-        else{p = gameState.getPlayerTwo();}
+        Player p = gameState.getCurrentPlayer();
         int oldPos = Integer.valueOf(p.getPosition());
         p.movePosition(diceRoll);
         // check if you pass go
@@ -182,6 +180,9 @@ public class Monopoly {
                 int rent = tempProp.getRent();
                 p.setBank(p.getBank()-rent);
                 p2.setBank(p2.getBank()+rent);
+                if (checkPlayerBanks() != 2) {
+                    endGame();
+                }
                 return;
             }
         }
@@ -212,9 +213,12 @@ public class Monopoly {
         // ensures duplicates won't be drawn
         int card = gameState.removeChanceCard(randomindex);
         // This function executes the chosen chance card on the player
-        Chance.getChanceResult(card, p,gameState);
+        Chance.getChanceResult(card, p, gameState);
         // set the has rolled dice to false so the player's position can be updated
         gameState.setHasRolledDice(false);
+        if (checkPlayerBanks() != 2) {
+            endGame();
+        }
         updatePlayerPosition(0);
     }
 
@@ -226,6 +230,9 @@ public class Monopoly {
     private void tax(Player p, int tax){
         p.setBank(p.getBank()-tax);
         gameState.setCommunityChest(gameState.getCommunityChest()+tax);
+        if (checkPlayerBanks() != 2) {
+            endGame();
+        }
     }
 
     /**
@@ -237,9 +244,7 @@ public class Monopoly {
      */
     public void updatePlayerProperty(Property prop, int playerNum){
         //which player is buying the property
-        Player p = null;
-        if (playerNum == 0){p = gameState.getPlayerOne();}
-        if (playerNum == 1){p = gameState.getPlayerTwo();}
+        Player p = gameState.getCurrentPlayer();
         p.addProperty(prop);
         p.setBank(p.getBank()-prop.getCost());
         gameState.setPropertyAvailable(null);
@@ -250,25 +255,15 @@ public class Monopoly {
      * function at any time during their turn. This function should be able to be called
      * from the UI at any point during the player's turn.
      * @param prop the property the player wants to add a house to
-     * @param playerNum the player whose turn it is
      */
-    public void updatePropertyHouseNumber(Property prop, int playerNum) {
+    public void updatePropertyHouseNumber(Property prop) {
         // which player is building a house
-        Player p = null;
-        if (playerNum == 0){p = gameState.getPlayerOne();}
-        if (playerNum == 1){p = gameState.getPlayerTwo();}
+        Player p = gameState.getCurrentPlayer();
 
-        if (prop.getNumberOfHouses() < 3) {
-            if (p.getBank() >= prop.getHouseCost()) {
-                p.setBank(p.getBank() - prop.getHouseCost());
-                prop.incrementHouseNumber();
-            } else {
-                // Send message to UI saying you can't afford to build a house
-            }
-        }
-        else {
-            // send message to UI saying they have the max number of houses
-        }
+        // Checking if there are too many houses or if the player doesn't have
+        // enough money is checked client-side
+        p.setBank(p.getBank() - prop.getHouseCost());
+        prop.incrementHouseNumber();
     }
 
     /**
@@ -277,6 +272,9 @@ public class Monopoly {
      * shouldn't end until they hit an 'end turn' button and this function is called.
      */
     public void endTurn() {
+        if (checkPlayerBanks() != 2) {
+            endGame();
+        }
         gameState.setHasRolledDice(false);
         gameState.changeTurn();
     }
@@ -289,6 +287,25 @@ public class Monopoly {
      */
      public void denyProperty(Property prop){
          gameState.setPropertyAvailable(null);
+     }
+
+    /**
+     * Check after each action to see if a player has gone below $0 in their bank.
+     * This means they have run out of money and have lost.
+     * @return 1 if player 2 won, 0 if player 1 won, 2 if neither have lost
+     */
+    public int checkPlayerBanks() {
+         if (gameState.getPlayerOne().getBank() < 0) {
+             return 1;
+         } else if (gameState.getPlayerTwo().getBank() < 0) {
+             return 0;
+         } else {
+             return 2;
+         }
+     }
+
+     public void endGame() {
+         System.out.println("Game Should Now End");
      }
 
     @Override
