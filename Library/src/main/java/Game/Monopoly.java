@@ -42,8 +42,12 @@ public class Monopoly {
      */
     public void updatePlayerPosition(int diceRoll){
         //makes sure dice isn't rolled more than once
-        if(diceRoll != 0 && gameState.isTurnTaken()){return;}
-        if(diceRoll != 0){gameState.setDiceValue(diceRoll);}
+        if(gameState.getHasRolledDice()) {
+            return;
+        }
+        gameState.setDiceValue(diceRoll);
+        // indicate the current player has rolled the dice this turn
+        gameState.setHasRolledDice(true);
         //determines which player is being moved
         Player p;
         if (gameState.getTurn() == 0){p = gameState.getPlayerOne();}
@@ -54,7 +58,6 @@ public class Monopoly {
         if(oldPos>p.getPosition()){
             p.setBank(p.getBank()+200);
         }
-        gameState.setTurnTaken(true);
         //switch cases for each of the potential spots to land on
         switch (p.getPosition()){
             case 0:
@@ -184,7 +187,6 @@ public class Monopoly {
         }
         //if no one has the property
         gameState.setPropertyAvailable(prop);
-        return;
     }
 
     /**
@@ -211,8 +213,9 @@ public class Monopoly {
         int card = gameState.removeChanceCard(randomindex);
         // This function executes the chosen chance card on the player
         Chance.getChanceResult(card, p,gameState);
+        // set the has rolled dice to false so the player's position can be updated
+        gameState.setHasRolledDice(false);
         updatePlayerPosition(0);
-
     }
 
     /**
@@ -223,7 +226,6 @@ public class Monopoly {
     private void tax(Player p, int tax){
         p.setBank(p.getBank()-tax);
         gameState.setCommunityChest(gameState.getCommunityChest()+tax);
-        return;
     }
 
     /**
@@ -241,9 +243,6 @@ public class Monopoly {
         p.addProperty(prop);
         p.setBank(p.getBank()-prop.getCost());
         gameState.setPropertyAvailable(null);
-        if(gameState.isTurnTaken()){
-            gameState.changeTurn();
-        }
     }
 
     /**
@@ -278,19 +277,18 @@ public class Monopoly {
      * shouldn't end until they hit an 'end turn' button and this function is called.
      */
     public void endTurn() {
+        gameState.setHasRolledDice(false);
         gameState.changeTurn();
-        // then call a function that handles the player's turn
     }
 
     /**
      * if the player doesn't want to buy the property the client
      * will call this, which should change the turn to the next player
-     * and give them the option to buy the property, without ending there turn.
+     * and give them the option to buy the property, without ending their turn.
      * @param prop The property being denied (Is Never Used)
      */
      public void denyProperty(Property prop){
          gameState.setPropertyAvailable(null);
-         gameState.changeTurn();
      }
 
     @Override

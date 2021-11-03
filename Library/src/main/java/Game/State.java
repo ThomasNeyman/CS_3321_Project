@@ -18,10 +18,13 @@ public class State {
     private int turn;
     private int communityChest;
     private boolean hasWon;
+    // I think we can get rid of the turnTaken variable. it is irrelevant
+    // because the player will always manually end their turn
     private boolean turnTaken;
     private Property propertyAvailable;
     private String chanceCardDescription;
     private int diceValue;
+    private boolean hasRolledDice;
 
     //Constructor
     public State(){
@@ -53,6 +56,7 @@ public class State {
         this.turn = 0;
         this.communityChest=0;
         this.hasWon=false;
+        this.hasRolledDice = false;
     }
 
     //getter methods
@@ -67,8 +71,11 @@ public class State {
     }
     public int getTurn() {
         //if x is 0 then it is Player 1 turn if x is 1 it is player 2s turn
-        int x = turn%2;
-        return x;
+        //int x = turn%2;
+        //return x;
+        // The changing turn will now be handled in the endTurn method
+        // not in the getter of turn
+        return turn;
     }
     public int getCommunityChest() {
         return communityChest;
@@ -80,6 +87,9 @@ public class State {
     public int getDiceValue() {
         return diceValue;
     }
+    public boolean getHasRolledDice() {
+        return hasRolledDice;
+    }
 
     //Setters
     public void setPropertyList(Property[] propertyList) {
@@ -88,12 +98,12 @@ public class State {
     public void setCommunityChest(int communityChest) {
         this.communityChest = communityChest;
     }
-
+    public void setHasRolledDice(boolean value) {
+        this.hasRolledDice = value;
+    }
     public void setDiceValue(int diceValue) {
         this.diceValue = diceValue;
     }
-
-    //changeturn method to use whenever a player ends their turn.
 
     /**
      * Function handles switching the player's turns. There are only

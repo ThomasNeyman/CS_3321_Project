@@ -108,30 +108,43 @@ public class ClientController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }*/
     @FXML
+    protected void endTurn() {
+        System.out.println("The button was pressed");
+        gameC.game.endTurn();
+        update(gameC.game.getGameState());
+    }
+
+    @FXML
     protected void diceClick() throws IOException {
-        int rand = ThreadLocalRandom.current().nextInt(1, 7);
-        Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + rand + ".png"));
-        dicePicture.setImage(diceImage);
-        State state = gameC.state;
-        gameC.game.updatePlayerPosition(rand);
-        update(state);
-        if(state.getPropertyAvailable() != null && state.getCurrentPlayer().getBank() > state.getPropertyAvailable().getCost()){
-            Alert buyProperty = new Alert(Alert.AlertType.NONE, "Do you want to buy property "+state.getPropertyAvailable().getPosition()+", for $"+state.getPropertyAvailable().getCost()+"",ButtonType.OK, ButtonType.NO);
+        if (!gameC.game.getGameState().getHasRolledDice()) {
+            int rand = ThreadLocalRandom.current().nextInt(1, 7);
+            Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + rand + ".png"));
+            dicePicture.setImage(diceImage);
+            State state = gameC.state;
+            gameC.game.updatePlayerPosition(rand);
+            update(state);
+            if(state.getPropertyAvailable() != null && state.getCurrentPlayer().getBank() > state.getPropertyAvailable().getCost()){
+                Alert buyProperty = new Alert(Alert.AlertType.NONE, "Do you want to buy property "+state.getPropertyAvailable().getPosition()+", for $"+state.getPropertyAvailable().getCost()+"",ButtonType.OK, ButtonType.NO);
 
-            buyProperty.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK){
-                    gameC.game.updatePlayerProperty(state.getPropertyAvailable(),state.getTurn());
-                }
-                else{
-                    gameC.game.denyProperty(state.getPropertyAvailable());
-                }
-            });
-        }else{
-            gameC.game.denyProperty(state.getPropertyAvailable());
+                buyProperty.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK){
+                        gameC.game.updatePlayerProperty(state.getPropertyAvailable(),state.getTurn());
+                    }
+                    else{
+                        gameC.game.denyProperty(state.getPropertyAvailable());
+                    }
+                });
+            }else{
+                gameC.game.denyProperty(state.getPropertyAvailable());
+                Alert canNotAfford = new Alert(Alert.AlertType.NONE, "You are unable to afford this property. It will be auctioned off instead", ButtonType.OK);
+                canNotAfford.show();
+            }
+            update(gameC.state);
         }
-        update(gameC.state);
-
-
+        else {
+            Alert alreadyRolledDice = new Alert(Alert.AlertType.WARNING, "YOU HAVE ALREADY ROLLED THE DICE THIS ROUND!!!", ButtonType.OK);
+            alreadyRolledDice.show();
+        }
     }
 
     protected void init() {
@@ -196,6 +209,7 @@ public class ClientController {
                 }
             }
         }
+
         //sets chance card description
         chanceCard.setText(gameState.getChanceCardDescription());
         //sets community Chest
@@ -215,7 +229,7 @@ public class ClientController {
         if(gameState.getPlayerTwo().isHasGOJFC()){
             p2gojfc.setText("Get Out of Jail");
         }
-        turn.setText("Player "+(gameState.getTurn()+1)+"'s Turn");
+        turn.setText("Player "+(gameState.getTurn() + 1)+"'s Turn");
         //sets color of dice
         Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + gameState.getDiceValue() + ".png"));
         dicePicture.setImage(diceImage);

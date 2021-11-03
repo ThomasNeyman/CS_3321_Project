@@ -218,7 +218,14 @@
                               <Label layoutX="66.0" layoutY="134.0" prefHeight="35.0" prefWidth="52.0" text="Chance" textAlignment="CENTER" wrapText="true" />
                            </children>
                         </Pane>
-                     </children></StackPane>
+                        <Pane prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="endTurn" contentDisplay="CENTER" layoutX="45" layoutY="350" mnemonicParsing="false" onAction="#endTurn" prefHeight="50" prefWidth="100"
+                              text="End Turn"/>
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Pane prefHeight="200.0" prefWidth="200.0">
