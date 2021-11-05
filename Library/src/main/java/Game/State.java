@@ -13,6 +13,7 @@ public class State {
     //instance variables
     private Player playerOne;
     private Player playerTwo;
+    private Player winner;
     private Property[] propertyList;
     private ArrayList<Integer> chanceCardIndex;
     private int turn;
@@ -51,6 +52,7 @@ public class State {
         //creation of the Players
         this.playerOne = new Player(0,1500,0);
         this.playerTwo = new Player(1,1500,0);
+        this.winner = null;
         //starting dice
         this.diceValue=5;
         this.turn = 0;
@@ -70,11 +72,6 @@ public class State {
         return propertyList;
     }
     public int getTurn() {
-        //if x is 0 then it is Player 1 turn if x is 1 it is player 2s turn
-        //int x = turn%2;
-        //return x;
-        // The changing turn will now be handled in the endTurn method
-        // not in the getter of turn
         return turn;
     }
     public int getCommunityChest() {
@@ -90,6 +87,9 @@ public class State {
     public boolean getHasRolledDice() {
         return hasRolledDice;
     }
+    public Player getWinner() {
+        return winner;
+    }
 
     //Setters
     public void setPropertyList(Property[] propertyList) {
@@ -103,6 +103,9 @@ public class State {
     }
     public void setDiceValue(int diceValue) {
         this.diceValue = diceValue;
+    }
+    public void setWinner(Player p) {
+        this.winner = p;
     }
 
     /**

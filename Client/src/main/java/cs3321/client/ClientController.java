@@ -3,6 +3,8 @@ package cs3321.client;
 import Game.*;
 import Game.Monopoly;
 import Game.gameC;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -101,8 +103,6 @@ public class ClientController {
 
     @FXML private Label turn;
 
-    private ObservableList propertyList;
-
 
 
 
@@ -126,6 +126,14 @@ public class ClientController {
         } else {
             gameC.game.endTurn();
             update(gameC.game.getGameState());
+        }
+        if (gameC.state.getWinner() != null) {
+            Alert gameEnds = new Alert(Alert.AlertType.NONE, "Player " + (gameC.state.getWinner().getPlayerNumber() + 1) + " has won!", ButtonType.OK);
+            gameEnds.showAndWait().ifPresent(confirm -> {
+                if (confirm == ButtonType.OK) {
+                    Platform.exit();
+                }
+            });
         }
     }
 

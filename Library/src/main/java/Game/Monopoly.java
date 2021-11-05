@@ -180,9 +180,6 @@ public class Monopoly {
                 int rent = tempProp.getRent();
                 p.setBank(p.getBank()-rent);
                 p2.setBank(p2.getBank()+rent);
-                if (checkPlayerBanks() != 2) {
-                    endGame();
-                }
                 return;
             }
         }
@@ -216,9 +213,6 @@ public class Monopoly {
         Chance.getChanceResult(card, p, gameState);
         // set the has rolled dice to false so the player's position can be updated
         gameState.setHasRolledDice(false);
-        if (checkPlayerBanks() != 2) {
-            endGame();
-        }
         updatePlayerPosition(0);
     }
 
@@ -230,9 +224,6 @@ public class Monopoly {
     private void tax(Player p, int tax){
         p.setBank(p.getBank()-tax);
         gameState.setCommunityChest(gameState.getCommunityChest()+tax);
-        if (checkPlayerBanks() != 2) {
-            endGame();
-        }
     }
 
     /**
@@ -272,9 +263,7 @@ public class Monopoly {
      * shouldn't end until they hit an 'end turn' button and this function is called.
      */
     public void endTurn() {
-        if (checkPlayerBanks() != 2) {
-            endGame();
-        }
+        checkPlayerBanks();
         gameState.setHasRolledDice(false);
         gameState.changeTurn();
     }
@@ -294,18 +283,12 @@ public class Monopoly {
      * This means they have run out of money and have lost.
      * @return 1 if player 2 won, 0 if player 1 won, 2 if neither have lost
      */
-    public int checkPlayerBanks() {
+    public void checkPlayerBanks() {
          if (gameState.getPlayerOne().getBank() < 0) {
-             return 1;
+             gameState.setWinner(gameState.getPlayerTwo());
          } else if (gameState.getPlayerTwo().getBank() < 0) {
-             return 0;
-         } else {
-             return 2;
+             gameState.setWinner(gameState.getPlayerOne());
          }
-     }
-
-     public void endGame() {
-         System.out.println("Game Should Now End");
      }
 
     @Override
