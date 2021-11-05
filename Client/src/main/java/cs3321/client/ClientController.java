@@ -5,16 +5,22 @@ import Game.Monopoly;
 import Game.gameC;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import Game.State;
+import javafx.stage.Stage;
 
 public class ClientController {
 
@@ -125,25 +131,59 @@ public class ClientController {
 
     @FXML
     protected void buildHouse() {
-        // determine which property the player wants to build houses on
-        /*
-        ListView listView = new ListView(propertyList);
-        propertyList.addAll(gameC.state.getCurrentPlayer().getPlayerProperties());
-        Property prop;
-         */
-        Property prop = new Property(60, 60 ,0);
+        ListView<String> listView = new ListView<>();
+        for (int i = 0; i < gameC.state.getCurrentPlayer().getPlayerProperties().size(); i++) {
+            listView.getItems().add(gameC.state.getCurrentPlayer().getPlayerProperties().get(i).getName());
+        }
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        Button button = new Button("Build House");
+        button.setOnAction(e -> buildHouseClicked(listView));
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(listView, button);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+
+        Scene scene = new Scene(layout,300, 300);
+        Stage window = new Stage();
+        window.setTitle("Select a property");
+        window.setScene(scene);
+        window.show();
+    }
+
+    private void buildHouseClicked(ListView<String> listView) {
+        String propertyName = listView.getSelectionModel().getSelectedItem();
+        Property prop = null;
+        if (propertyName == null) {
+            Alert nothingSelected = new Alert(Alert.AlertType.WARNING, "Nothing is Selected!", ButtonType.OK);
+            nothingSelected.show();
+            return;
+        }
+
+        for (int i = 0; i < gameC.state.getCurrentPlayer().getPlayerProperties().size(); i++) {
+            if (Objects.equals(gameC.state.getCurrentPlayer().getPlayerProperties().get(i).getName(), propertyName)) {
+                prop = gameC.state.getCurrentPlayer().getPlayerProperties().get(i);
+            }
+        }
+        if (prop == null) {
+            Alert errorChoosingHouse = new Alert(Alert.AlertType.ERROR, "Unable to choose property " + propertyName, ButtonType.OK);
+            errorChoosingHouse.show();
+            return;
+        }
 
         if (gameC.state.getCurrentPlayer().getBank() > prop.getHouseCost()) {
             if (prop.getNumberOfHouses() != 3) {
+                gameC.state.getCurrentPlayer().setBank(gameC.state.getCurrentPlayer().getBank() - prop.getHouseCost());
                 gameC.game.updatePropertyHouseNumber(prop);
             } else {
                 Alert tooManyHouses = new Alert(Alert.AlertType.WARNING, "This property already has the maximum number of houses!", ButtonType.OK);
                 tooManyHouses.show();
             }
         } else {
-            Alert canNotAfford = new Alert(Alert.AlertType.WARNING, "You can't afford to build a house on " + prop.getPosition(), ButtonType.OK);
+            Alert canNotAfford = new Alert(Alert.AlertType.WARNING, "You can't afford to build a house on " + prop.getName() + " (position " + prop.getPosition() + ")", ButtonType.OK);
             canNotAfford.show();
         }
+        update(gameC.state);
     }
 
     @FXML
@@ -168,8 +208,9 @@ public class ClientController {
                 });
             }else{
                 gameC.game.denyProperty(state.getPropertyAvailable());
-                Alert canNotAfford = new Alert(Alert.AlertType.NONE, "You are unable to afford this property. It will be auctioned off instead", ButtonType.OK);
-                canNotAfford.show();
+                // Just because the property is denied doesn't mean it's because the person can't afford it, error check this
+                //Alert canNotAfford = new Alert(Alert.AlertType.NONE, "You are unable to afford this property. It will be auctioned off instead", ButtonType.OK);
+                //canNotAfford.show();
             }
             update(gameC.state);
         }

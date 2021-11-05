@@ -52,8 +52,8 @@ public class PlayerTests {
     @Test
     @DisplayName("Test for adding properties to a player")
     public void testAddProperty() {
-        Property prop1 = new Property(60, 40, 0);
-        Property prop2 = new Property(1000, 400, 5);
+        Property prop1 = new Property(60, 40, 0, "Baltic Avenue");
+        Property prop2 = new Property(1000, 400, 5, "Expensive Avenue");
         p.addProperty(prop1);
         // Player should have property 1 in their list
         Assertions.assertTrue(p.getPlayerProperties().contains(prop1));

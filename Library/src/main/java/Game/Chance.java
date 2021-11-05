@@ -53,13 +53,13 @@ public final class Chance {
     }
 
     private static void chanceCard_3(Player player,State gameState) {
-        // Advance to Illinois Ave (Don't know position yet)
+        // Advance to St. Charles Place
         int oldPos = player.getPosition();
         player.setPosition(5);
         if(player.getPosition()<oldPos){
             player.setBank(player.getBank()+200);
         }
-        gameState.setChanceCardDescription("Advance to position 5");
+        gameState.setChanceCardDescription("Advance to St. Charles Place (position 5)");
 
     }
 

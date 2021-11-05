@@ -7,6 +7,7 @@ package Game;
  */
 public class Property{
     //instance variables
+    private String name;
     private int cost;
     private int rent;
     private int position;
@@ -17,10 +18,11 @@ public class Property{
     private final int houseCost;
 
     //Constructor
-    public Property(int cost, int rent, int position) {
+    public Property(int cost, int rent, int position, String name) {
         this.cost = cost;
         this.rent = rent;
         this.position = position;
+        this.name = name;
         this.numberOfHouses = 0;
         // Make the extra rent for houses super simple so each one does not need
         // to be assigned its own special values
@@ -55,6 +57,10 @@ public class Property{
 
     public int getHouseCost() {
         return houseCost;
+    }
+
+    public String getName() {
+        return name;
     }
 
     //Setters

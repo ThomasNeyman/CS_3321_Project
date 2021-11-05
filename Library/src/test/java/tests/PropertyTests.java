@@ -13,7 +13,7 @@ public class PropertyTests {
 
     @BeforeEach
     public void setUp() {
-        p = new Property(50, 50 ,0);
+        p = new Property(50, 50 ,0, "Test Avenue");
     }
 
     @AfterEach
