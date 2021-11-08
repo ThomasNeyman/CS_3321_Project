@@ -28,13 +28,7 @@ public class MonopolyTests {
         m.updatePlayerPosition(2);
         // The deck should have been created with 5 cards, then one was removed
         Assertions.assertEquals(4, m.getGameState().getChanceCardIndex().size());
-        // We can't test where the player's position is now because it is random
-        // SomeFunctionHere()
-        // There needs to be a way for the player to end their turn after moving if they choose
-        // or not. As of now, after the player moves positions, their turn is over, but they should
-        // be able to make other actions until they choose to end.
-        // Until implemented, this test fails sometimes
-        Assertions.assertTrue(m.getGameState().isTurnTaken());
+        Assertions.assertTrue(m.getGameState().getHasRolledDice());
     }
 
     @Test
@@ -91,10 +85,10 @@ public class MonopolyTests {
         m.updatePlayerPosition(2);
         // The property is property '0' in the list and should be available
         Assertions.assertEquals(0, m.getGameState().getPropertyAvailable().getPosition());
+        m.updatePlayerProperty(m.getGameState().getPropertyAvailable(), m.getGameState().getTurn());
 
-        m.getGameState().changeTurn();
+        m.endTurn();
         m.updatePlayerPosition(5);
-
         // Now player 2 lands on a property and it should be switched as the available one
         Assertions.assertEquals(2, m.getGameState().getPropertyAvailable().getPosition());
     }
@@ -103,12 +97,14 @@ public class MonopolyTests {
     @DisplayName("Test for landing on the other player's property")
     public void testOnProperty_b() {
         // give player 2 property '0'
+        m.endTurn();
         m.updatePlayerProperty(m.getGameState().getPropertyList()[0], 1);
         // PLAYER 2'S BANK IS NOW $60 LESS
 
         // Make sure the property is in player 2's list
         Assertions.assertTrue(m.getGameState().getPlayerTwo().getPlayerProperties().contains(m.getGameState().getPropertyList()[0]));
 
+        m.endTurn();
         m.updatePlayerPosition(2);
         // Player 1 should have landed on the owned property and now pays player 2
         // the rent for property at index '0' is $40
@@ -121,12 +117,14 @@ public class MonopolyTests {
     @DisplayName("Test for landing on the other player's property but you can't afford rent")
     public void testOnProperty_c() {
         // give player 2 property '0'
+        m.endTurn();
         m.updatePlayerProperty(m.getGameState().getPropertyList()[0], 1);
 
+        m.endTurn();
         m.getGameState().getPlayerOne().setBank(10);
         m.updatePlayerPosition(2);
-        // The player should not be allowed to go negative with their bank
-        Assertions.assertEquals(0, m.getGameState().getPlayerOne().getBank());
+        // The player should be negative with their bank
+        Assertions.assertEquals(-30, m.getGameState().getPlayerOne().getBank());
     }
 
     @Test
@@ -135,6 +133,8 @@ public class MonopolyTests {
         // give player 1 property '0'
         m.updatePlayerProperty(m.getGameState().getPropertyList()[0], 0);
         m.updatePlayerPosition(2);
+        Assertions.assertEquals(1440, m.getGameState().getCurrentPlayer().getBank());
+        m.endTurn();
         // It should now be player 2's turn
         Assertions.assertEquals(1, m.getGameState().getTurn());
         Assertions.assertFalse(m.getGameState().isTurnTaken());
@@ -166,7 +166,9 @@ public class MonopolyTests {
         // The player lands on Tax with only $5
         m.getGameState().getPlayerOne().setBank(5);
         m.updatePlayerPosition(4);
-        Assertions.assertEquals(0, m.getGameState().getPlayerOne().getBank());
+        Assertions.assertEquals(-35, m.getGameState().getPlayerOne().getBank());
+        // Only the amount the player had available should go into the chest, not the entire value
+        // In this case, the player only had $5 to give but will still be $35 in debt
         Assertions.assertEquals(5, m.getGameState().getCommunityChest());
     }
 
@@ -176,6 +178,7 @@ public class MonopolyTests {
     // Test for what happens when player tries to buy a house without enough money
     // Test for what happens when player tries to buy more than 3 houses
     // Make tests for Monopoly.endTurn() function
+    // Make sure available property is set to null after being purchased
 
 
 }

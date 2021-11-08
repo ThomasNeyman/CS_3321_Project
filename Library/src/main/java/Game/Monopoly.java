@@ -222,8 +222,16 @@ public class Monopoly {
      * @param tax the amount that will be taxed from the player
      */
     private void tax(Player p, int tax){
-        p.setBank(p.getBank()-tax);
-        gameState.setCommunityChest(gameState.getCommunityChest()+tax);
+        // if a player doesn't have enough money to pay the full tax, only the
+        // amount they have available will be paid, but they will still be in debt
+        // the full amount
+        if (p.getBank() < tax) {
+            p.setBank(p.getBank() - tax);
+            gameState.setCommunityChest(gameState.getCommunityChest() + tax + p.getBank());
+        } else {
+            p.setBank(p.getBank()-tax);
+            gameState.setCommunityChest(gameState.getCommunityChest()+tax);
+        }
     }
 
     /**
@@ -236,9 +244,11 @@ public class Monopoly {
     public void updatePlayerProperty(Property prop, int playerNum){
         //which player is buying the property
         Player p = gameState.getCurrentPlayer();
-        p.addProperty(prop);
-        p.setBank(p.getBank()-prop.getCost());
-        gameState.setPropertyAvailable(null);
+        if (p.getBank() >= prop.getCost()) {
+            p.addProperty(prop);
+            p.setBank(p.getBank()-prop.getCost());
+            gameState.setPropertyAvailable(null);
+        }
     }
 
     /**

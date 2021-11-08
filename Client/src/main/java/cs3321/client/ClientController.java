@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -18,11 +19,15 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import Game.State;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ClientController {
 
@@ -126,6 +131,9 @@ public class ClientController {
         } else {
             gameC.game.endTurn();
             update(gameC.game.getGameState());
+            if (gameC.state.getCurrentPlayer().isInJail()) {
+                inJailHandler();
+            }
         }
         if (gameC.state.getWinner() != null) {
             Alert gameEnds = new Alert(Alert.AlertType.NONE, "Player " + (gameC.state.getWinner().getPlayerNumber() + 1) + " has won!", ButtonType.OK);
@@ -134,6 +142,80 @@ public class ClientController {
                     Platform.exit();
                 }
             });
+        }
+    }
+
+    protected void inJailHandler() {
+        Stage window = new Stage();
+
+        Text text = new Text("You are in Jail! You may either pay the fine of $50 to leave or attempt to roll a 1 to be let out for free.");
+        text.setWrappingWidth(250);
+
+        Button rollDice = new Button("Roll Dice");
+        rollDice.setStyle("-fx-font-size:28");
+        rollDice.setPrefSize(200, 100);
+        rollDice.setOnAction(e -> jailRollDiceClicked(window));
+
+        Button payFine = new Button("Pay Fine");
+        payFine.setStyle("-fx-font-size:28");
+        payFine.setPrefSize(200, 100);
+        payFine.setOnAction(e -> jailPayFineClicked(window));
+
+        Button getOutFree = new Button("Use \"Get out of jail FREE\" card");
+        getOutFree.setStyle("-fx-font-size:12");
+        getOutFree.setPrefSize(200, 100);
+        getOutFree.setOnAction(e -> jailGetOutFree(window));
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(text, rollDice, payFine, getOutFree);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout,300, 300);
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.initStyle(StageStyle.UNDECORATED);
+        window.setTitle("You are in Jail");
+        window.setScene(scene);
+        window.showAndWait();
+        update(gameC.state);
+    }
+
+    private void jailRollDiceClicked(Stage window) {
+        int rand = ThreadLocalRandom.current().nextInt(1, 7);
+        if (rand == 1) {
+            gameC.state.getCurrentPlayer().setInJail(false);
+            Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a 1. You are now free from Jail!", ButtonType.OK);
+            alert.showAndWait().ifPresent(confirm -> {
+                if (confirm == ButtonType.OK) window.close();
+            });
+        } else {
+            gameC.state.setHasRolledDice(true);
+            Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a " + rand + ". You will remain in Jail this turn!", ButtonType.OK);
+            alert.showAndWait().ifPresent(confirm -> {
+                if (confirm == ButtonType.OK) window.close();
+            });
+        }
+    }
+
+    private void jailPayFineClicked(Stage window) {
+        if (gameC.state.getCurrentPlayer().getBank() >= 50) {
+            gameC.state.getCurrentPlayer().setBank(gameC.state.getCurrentPlayer().getBank() - 50);
+            gameC.state.getCurrentPlayer().setInJail(false);
+            window.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You don't have enough money to pay the fine! You will need to roll instead.", ButtonType.OK);
+            alert.show();
+        }
+    }
+
+    private void jailGetOutFree(Stage window) {
+        if (gameC.state.getCurrentPlayer().isHasGOJFC()) {
+            gameC.state.getCurrentPlayer().setInJail(false);
+            gameC.state.getCurrentPlayer().setHasGOJFC(false);
+            window.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You don't have a \"Get out of Jail FREE\" card...", ButtonType.OK);
+            alert.show();
         }
     }
 
@@ -151,6 +233,7 @@ public class ClientController {
         VBox layout = new VBox(10);
         layout.getChildren().addAll(listView, button);
         layout.setPadding(new Insets(20, 20, 20, 20));
+        layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout,300, 300);
         Stage window = new Stage();
@@ -196,6 +279,11 @@ public class ClientController {
 
     @FXML
     protected void diceClick() throws IOException {
+        if (gameC.state.getCurrentPlayer().isInJail()) {
+            Alert inJail = new Alert(Alert.AlertType.WARNING, "You're in jail, you can't roll the dice to move!", ButtonType.OK);
+            inJail.show();
+            return;
+        }
         if (!gameC.game.getGameState().getHasRolledDice()) {
             int rand = ThreadLocalRandom.current().nextInt(1, 7);
             Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + rand + ".png"));
