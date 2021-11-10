@@ -41,6 +41,7 @@ public class Monopoly {
      * @param diceRoll The randomly generated value from 1 to 6
      */
     public void updatePlayerPosition(int diceRoll){
+        System.out.println("Updating position with roll " + diceRoll);
         //makes sure dice isn't rolled more than once
         if(gameState.getHasRolledDice()) {
             return;
@@ -58,13 +59,9 @@ public class Monopoly {
         }
         //switch cases for each of the potential spots to land on
         switch (p.getPosition()){
-            case 0:
-            case 7:
+            case 0, 7:
                 return;
-            case 1:
-            case 8:
-            case 15:
-            case 22:
+            case 1, 8, 15, 22:
                 try {
                     drawRandomCard(p);
                 } catch (Exception e) {
@@ -121,10 +118,6 @@ public class Monopoly {
                 onProperty(p,11);
                 break;
             case 21:
-                if(p.isHasGOJFC()){
-                    p.setHasGOJFC(false);
-                    return;
-                }
                 p.setInJail(true);
                 p.setPosition(7);
                 return;
@@ -209,10 +202,10 @@ public class Monopoly {
         // This function simply removes the chance card just drawn from the array. This
         // ensures duplicates won't be drawn
         int card = gameState.removeChanceCard(randomindex);
-        // This function executes the chosen chance card on the player
-        Chance.getChanceResult(card, p, gameState);
         // set the has rolled dice to false so the player's position can be updated
         gameState.setHasRolledDice(false);
+        // This function executes the chosen chance card on the player
+        Chance.getChanceResult(card, p, gameState);
         updatePlayerPosition(0);
     }
 

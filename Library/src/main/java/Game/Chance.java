@@ -37,19 +37,13 @@ public final class Chance {
     private static void chanceCard_1(Player player,State gameState) {
         // Advance to GO and collect $200
         player.setPosition(0);
-        player.setBank(player.getBank() + 200);
         gameState.setChanceCardDescription("Advance to GO and collect $200");
     }
 
     private static void chanceCard_2(Player player,State gameState) {
         // Advance to Boardwalk (Don't know what position that is yet
-        int oldPos = player.getPosition();
         player.setPosition(10);
-        if(player.getPosition()<oldPos){
-            player.setBank(player.getBank()+200);
-        }
         gameState.setChanceCardDescription("Advance to position 10");
-
     }
 
     private static void chanceCard_3(Player player,State gameState) {

@@ -222,6 +222,8 @@
                            <children>
                               <Button fx:id="endTurn" contentDisplay="CENTER" layoutX="45" layoutY="350" mnemonicParsing="false" onAction="#endTurn" prefHeight="50" prefWidth="100"
                               text="End Turn"/>
+                              <Button fx:id="trade" contentDisplay="CENTER" layoutX="45" layoutY="45" mnemonicParsing="false" onAction="#trade" prefHeight="50" prefWidth="100"
+                                      text="Trade Properties" wrapText="true" textAlignment="CENTER"/>
                            </children>
                         </Pane>
                      </children>

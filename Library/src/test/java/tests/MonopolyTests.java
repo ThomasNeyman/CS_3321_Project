@@ -67,7 +67,7 @@ public class MonopolyTests {
     @DisplayName("Test for rolling while turn is already taken")
     public void testUpdatePlayerPosition_b() {
         // player shouldn't move if their turn is already taken
-        m.getGameState().setTurnTaken(true);
+        m.getGameState().setHasRolledDice(true);
         Assertions.assertEquals(0, m.getGameState().getPlayerOne().getPosition());
     }
 
@@ -137,7 +137,7 @@ public class MonopolyTests {
         m.endTurn();
         // It should now be player 2's turn
         Assertions.assertEquals(1, m.getGameState().getTurn());
-        Assertions.assertFalse(m.getGameState().isTurnTaken());
+        Assertions.assertFalse(m.getGameState().getHasRolledDice());
     }
 
     @Test

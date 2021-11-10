@@ -278,6 +278,81 @@ public class ClientController {
     }
 
     @FXML
+    protected void trade() {
+        Stage window = new Stage();
+
+        ListView<String> currPlayerProps = new ListView<>();
+        for (int i = 0; i < gameC.state.getCurrentPlayer().getPlayerProperties().size(); i++) {
+            currPlayerProps.getItems().add(gameC.state.getCurrentPlayer().getPlayerProperties().get(i).getName());
+        }
+        currPlayerProps.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        Player p;
+        if (gameC.state.getCurrentPlayer().getPlayerNumber() == 0) {
+            p = gameC.state.getPlayerTwo();
+        } else {
+            p = gameC.state.getPlayerOne();
+        }
+
+        ListView<String> otherPlayerProps = new ListView<>();
+        for (int i = 0; i < p.getPlayerProperties().size(); i++) {
+            otherPlayerProps.getItems().add(p.getPlayerProperties().get(i).getName());
+        }
+        otherPlayerProps.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        Button tradeButton = new Button("Offer trade");
+        tradeButton.setOnAction(e -> tradeClicked(window, currPlayerProps, otherPlayerProps, p));
+        tradeButton.setPrefSize(100, 50);
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(currPlayerProps, otherPlayerProps, tradeButton);
+        layout.setPadding(new Insets(20, 20, 20, 20));
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout,600, 400);
+        window.setTitle("Choose a property to trade");
+        window.setScene(scene);
+        window.show();
+    }
+
+    private void tradeClicked(Stage window, ListView<String> currPlayerProps, ListView<String> otherPlayerProps, Player p) {
+        String prop1, prop2;
+        prop1 = currPlayerProps.getSelectionModel().getSelectedItem();
+        prop2 = otherPlayerProps.getSelectionModel().getSelectedItem();
+        if (prop1 == null || prop2 == null) {
+            Alert nothingSelected = new Alert(Alert.AlertType.WARNING, "You must select a property from each list!", ButtonType.OK);
+            nothingSelected.show();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.NONE, "Do you confirm the trade " + prop1 + " for " + prop2 + "?", ButtonType.NO, ButtonType.YES);
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                Property currPlayerProp = null, otherPlayerProp = null, temp = null;
+
+                for (int i = 0; i < gameC.state.getCurrentPlayer().getPlayerProperties().size(); i++) {
+                    if (Objects.equals(gameC.state.getCurrentPlayer().getPlayerProperties().get(i).getName(), prop1)) {
+                        currPlayerProp = gameC.state.getCurrentPlayer().getPlayerProperties().get(i);
+                    }
+                }
+
+                for (int i = 0; i < p.getPlayerProperties().size(); i++) {
+                    if (Objects.equals(p.getPlayerProperties().get(i).getName(), prop2)) {
+                        otherPlayerProp = p.getPlayerProperties().get(i);
+                    }
+                }
+
+                // Now switch the properties around
+                temp = currPlayerProp;
+                currPlayerProp = otherPlayerProp;
+                otherPlayerProp = temp;
+
+                update(gameC.state);
+            }
+            window.close();
+        });
+    }
+
+    @FXML
     protected void diceClick() throws IOException {
         if (gameC.state.getCurrentPlayer().isInJail()) {
             Alert inJail = new Alert(Alert.AlertType.WARNING, "You're in jail, you can't roll the dice to move!", ButtonType.OK);

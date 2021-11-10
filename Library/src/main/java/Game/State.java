@@ -19,9 +19,6 @@ public class State {
     private int turn;
     private int communityChest;
     private boolean hasWon;
-    // I think we can get rid of the turnTaken variable. it is irrelevant
-    // because the player will always manually end their turn
-    private boolean turnTaken;
     private Property propertyAvailable;
     private String chanceCardDescription;
     private int diceValue;
@@ -115,15 +112,6 @@ public class State {
     public void changeTurn(){
         turn++;
         turn = turn%2;
-        setTurnTaken(false);
-    }
-
-    //getter and setter for turnTaken value
-    public boolean isTurnTaken() {
-        return turnTaken;
-    }
-    public void setTurnTaken(boolean turnTaken) {
-        this.turnTaken = turnTaken;
     }
 
     //getter and setter for available property
@@ -175,8 +163,7 @@ public class State {
                 ", playerTwo=" + playerTwo.getPosition() +","+playerTwo.getBank() +
                 ", turn=" + turn +
                 ", communityChest=" + communityChest +
-                ", hasWon=" + hasWon +
-                ", turnTaken=" + turnTaken;
+                ", hasWon=" + hasWon;
         if (propertyAvailable != null){
             s = s+", propertyAvailable=" + propertyAvailable.getPosition()+"}";
          }else{
