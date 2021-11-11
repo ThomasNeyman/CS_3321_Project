@@ -13,27 +13,27 @@ public class ServerTests {
 
     //region cs3321.Server tests
 
-    private static final Server server = new Server();
+    private static final MoServer MO_SERVER = new MoServer();
 
     @BeforeAll
-    private static void setUp() {
+    //private static void setUp() {
         // start the server
         // a start method needs to be implemented so you are not
         // calling the main function
-        server.startServer();
-    }
+        //MO_SERVER.startServer();
+   // }
 
     @AfterAll
-    private static void tearDown() {
+   // private static void tearDown() {
         //stop the server
-        server.getApp().stop();
-    }
+   //     MO_SERVER.getApp().stop();
+   // }
 
     @Test
     @DisplayName("Assert the server has been created")
     //@Disabled("Not Implemented")
     void showAssertion() {
-        Assertions.assertNotNull(server);
+        Assertions.assertNotNull(MO_SERVER);
     }
 
     //endregion

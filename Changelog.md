@@ -19,8 +19,8 @@ Format based on [Keep a Changelog]
 
 ## [1.0.0] 2021-10-17
 ### Added
-- Added cs3321.Server, Library, and Client modules
-- cs3321.Server and Client able to form a connection
+- Added cs3321.MoServer, Library, and Client modules
+- cs3321.MoServer and Client able to form a connection
 - Structure of UI board completed
 - Dice roll action is functional
 - UML Diagram Structure completed

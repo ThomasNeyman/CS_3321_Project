@@ -1,4 +1,6 @@
 module cs3321{
-    requires io.javalin;
     requires Game;
-        }
+    requires io.javalin;
+    requires org.eclipse.jetty.util;
+    requires org.eclipse.jetty.server;
+}

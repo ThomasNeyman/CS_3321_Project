@@ -1,7 +1,9 @@
 package Game;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,7 +45,8 @@ public class Monopoly {
     public void updatePlayerPosition(int diceRoll){
         System.out.println("Updating position with roll " + diceRoll);
         //makes sure dice isn't rolled more than once
-        if(gameState.getHasRolledDice()) {
+
+        if(gameState.getHasRolledDice() && diceRoll != 0) {
             return;
         }
         gameState.setDiceValue(diceRoll);
@@ -203,7 +206,7 @@ public class Monopoly {
         // ensures duplicates won't be drawn
         int card = gameState.removeChanceCard(randomindex);
         // set the has rolled dice to false so the player's position can be updated
-        gameState.setHasRolledDice(false);
+        //gameState.setHasRolledDice(false);
         // This function executes the chosen chance card on the player
         Chance.getChanceResult(card, p, gameState);
         updatePlayerPosition(0);
@@ -300,4 +303,5 @@ public class Monopoly {
                 "gameState=" + gameState +
                 '}';
     }
+
 }
