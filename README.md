@@ -22,7 +22,7 @@ Garrett Stouffer
 Pawan Kandel  
 
 ## Progress
-![Project Health](docs/images/projectHealth.png)
+![Project Health](docs/images/projectHealth2.png)
 
 ## Technologies Used
 Programming Language - Java (front and back)
