@@ -11,13 +11,13 @@ import java.io.IOException;
 public class Client extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("board.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("connectionboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         stage.setTitle("Monopoly");
-        ClientController control = fxmlLoader.getController();
+        //ClientController control = fxmlLoader.getController();
 
         stage.setScene(scene);
-        control.init();
+        //control.init();
         stage.show();
     }
     public void createBoard(){

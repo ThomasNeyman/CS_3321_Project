@@ -25,7 +25,7 @@ public class Connection {
     private static final String ENDTURN_CALL = "http://%s:%s/game/endTurn";
     private static final String DENYPROPERTY_CALL = "http://%s:%s/game/denyProperty";
     private static final String UPDATE_CALL = "http://%s:%s/game/update";
-    private static final String STATUS_CALL = "http://%s:%s/game/update";
+    private static final String STATUS_CALL = "http://%s:%s/game/status";
 
     private Connection() {
     }
@@ -42,6 +42,7 @@ public class Connection {
         this.add = add;
         this.port = port;
         client = HttpClient.newBuilder().build();
+
     }
     public void disconect(){
         add = null;
@@ -109,6 +110,7 @@ public class Connection {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body().equals("OK");
+
         } catch (IOException | InterruptedException ex) {
             return false;
         }

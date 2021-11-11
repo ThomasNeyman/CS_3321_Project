@@ -21,10 +21,9 @@ public class MoServer {
                 config.server(() ->
                         new Server(queuedThreadPool))).start(7000);
 
-        app.get("/",ctx -> ctx.result("OK"));
         app.routes(() ->{
-            get("api/status", ctx ->{
-                ctx.result("ok");
+            get("game/status", ctx ->{
+                ctx.result("OK");
             });
             post("api/diceroll",ctx ->{
 

@@ -24,7 +24,7 @@ tasks.withType(JavaCompile) {
 
 application {
   mainModule = 'cs3321.client'
-  mainClass = 'cs3321.client.HelloApplication'
+  mainClass = 'cs3321.client.Main'
 }
 
 javafx {

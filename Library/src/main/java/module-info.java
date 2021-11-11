@@ -1,3 +1,0 @@
-module Game{
-    exports Game;
-        }
