@@ -8,10 +8,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ConnectionController implements Initializable {
+
+
+
+    private Client app;
+
 
     @FXML
     Button connect, reset;
@@ -21,10 +27,6 @@ public class ConnectionController implements Initializable {
 
 
     @FXML Scene scene;
-
-    private Client app;
-
-    public ConnectionController(Client app){this.app = app;}
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -37,7 +39,13 @@ public class ConnectionController implements Initializable {
                     if (!connection.test()){
                         Alert badInput = new Alert(Alert.AlertType.WARNING, "Unable to connect, make sure your port and address are correct", ButtonType.OK);
                         badInput.show();
-                    }
+                    }/*else{
+                        try {
+                            app.showBoard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }*/
             }else{
                 Alert emptyInput = new Alert(Alert.AlertType.WARNING, "One or more fields is empty", ButtonType.OK);
                 emptyInput.show();

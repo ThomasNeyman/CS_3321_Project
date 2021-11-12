@@ -28,6 +28,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.checkerframework.checker.units.qual.A;
 
 public class ClientController {
 
@@ -108,8 +109,11 @@ public class ClientController {
 
     @FXML private Label turn;
 
+//FXML for the connection board
 
-
+    @FXML private Label addressLabel, portLabel;
+    @FXML private TextField address, port;
+    @FXML private Button connect;
 
 
 
@@ -117,6 +121,27 @@ public class ClientController {
 
     public ClientController() {
 
+    }
+    @FXML
+    protected void connect() {
+        if(!address.getText().isEmpty() && !port.getText().isEmpty()){
+            Connection connection = Connection.instance();
+            connection.initialize(address.getText(), port.getText());
+            System.out.println(connection.test());
+            if (!connection.test()){
+                Alert badInput = new Alert(Alert.AlertType.WARNING, "Unable to connect, make sure your port and address are correct", ButtonType.OK);
+                badInput.show();
+            }else{
+                address.setVisible(false);
+                port.setVisible(false);
+                addressLabel.setVisible(false);
+                portLabel.setVisible(false);
+                connect.setVisible(false);
+                    }
+        }else{
+            Alert emptyInput = new Alert(Alert.AlertType.WARNING, "One or more fields is empty", ButtonType.OK);
+            emptyInput.show();
+        }
     }
 
     // @FXML
@@ -391,10 +416,6 @@ public class ClientController {
         }
     }
 
-    protected void init() {
-        Monopoly game = new Monopoly();
-        update(game.getGameState());
-    }
 
     private void update(State gameState){
         //defines color of each rectangle, blue for playerone, red for playertwo, nad grey for the rest

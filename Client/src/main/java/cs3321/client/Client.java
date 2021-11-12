@@ -9,22 +9,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-
 public class Client extends Application {
-    Stage main;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("connectionboard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("board.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 650);
         stage.setTitle("Monopoly");
-        //ClientController control = fxmlLoader.getController();
+        ClientController control = fxmlLoader.getController();
 
         stage.setScene(scene);
-        //control.init();
         stage.show();
     }
     public void showBoard(){
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("board.fxml"));
 
     }
 
