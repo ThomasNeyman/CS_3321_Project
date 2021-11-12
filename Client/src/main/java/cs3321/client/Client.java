@@ -8,7 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+
 public class Client extends Application {
+    Stage main;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("connectionboard.fxml"));
@@ -20,7 +23,8 @@ public class Client extends Application {
         //control.init();
         stage.show();
     }
-    public void createBoard(){
+    public void showBoard(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("board.fxml"));
 
     }
 

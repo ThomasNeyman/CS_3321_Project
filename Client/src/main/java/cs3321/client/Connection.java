@@ -19,13 +19,13 @@ public class Connection {
     HttpClient client;
     static Connection instance = null;
 
-    private static final String DICE_CALL = "http://%s:%s/game/diceRoll";
-    private static final String PROPERTY_CALL = "http://%s:%s/game/buyProperty";
-    private static final String HOUSE_CALL = "http://%s:%s/game/buyHouse";
-    private static final String ENDTURN_CALL = "http://%s:%s/game/endTurn";
-    private static final String DENYPROPERTY_CALL = "http://%s:%s/game/denyProperty";
-    private static final String UPDATE_CALL = "http://%s:%s/game/update";
-    private static final String STATUS_CALL = "http://%s:%s/game/status";
+    private static final String DICE_CALL = "http://%s:%s/api/diceRoll";
+    private static final String PROPERTY_CALL = "http://%s:%s/api/buyProperty";
+    private static final String HOUSE_CALL = "http://%s:%s/api/buyHouse";
+    private static final String ENDTURN_CALL = "http://%s:%s/api/endTurn";
+    private static final String DENYPROPERTY_CALL = "http://%s:%s/api/denyProperty";
+    private static final String UPDATE_CALL = "http://%s:%s/api/update";
+    private static final String STATUS_CALL = "http://%s:%s/api/status";
 
     private Connection() {
     }

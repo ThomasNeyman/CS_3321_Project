@@ -22,7 +22,9 @@ public class ConnectionController implements Initializable {
 
     @FXML Scene scene;
 
+    private Client app;
 
+    public ConnectionController(Client app){this.app = app;}
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
