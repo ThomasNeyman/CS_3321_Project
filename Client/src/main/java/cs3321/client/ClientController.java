@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
@@ -29,6 +30,8 @@ import javafx.util.Duration;
 public class ClientController {
 
     @FXML private ImageView dicePicture;
+
+    @FXML private Pane main;
     //fxml for each game peice
     @FXML private Rectangle s0;
     @FXML private Rectangle s1;
@@ -148,19 +151,7 @@ public class ClientController {
                 connect.setVisible(false);
 
                 gameState = connection.updateGameState();
-                Timeline timeline = new Timeline(
-                        new KeyFrame(Duration.seconds(1), e -> {
-                            try {
-                                gameState = connection.updateGameState();
-                                update(gameState);
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            } catch (InterruptedException ex) {
-                                ex.printStackTrace();
-                            }
-                        })
-                );
-                timeline.play();
+
                 update(gameState);
 
                     }
