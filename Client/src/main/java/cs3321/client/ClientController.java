@@ -1,11 +1,10 @@
 package cs3321.client;
 
 import Game.*;
-import Game.Monopoly;
 import Game.gameC;
-import javafx.application.Application;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,14 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
-import java.util.BitSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import Game.State;
@@ -28,7 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.checkerframework.checker.units.qual.A;
+import javafx.util.Duration;
 
 public class ClientController {
 
@@ -115,6 +111,7 @@ public class ClientController {
     @FXML private TextField address, port;
     @FXML private Button connect;
 
+    private boolean initialized = false;
 
 
     Connection connection = Connection.instance();
@@ -124,6 +121,11 @@ public class ClientController {
     public ClientController() {
 
     }
+    public void updateUI() throws IOException, InterruptedException {
+        gameState = connection.updateGameState();
+        update(gameState);
+    }
+
     @FXML
     protected void connect() throws IOException, InterruptedException {
         if(!address.getText().isEmpty() && !port.getText().isEmpty()){
@@ -145,7 +147,20 @@ public class ClientController {
                 portLabel.setText("Player # "+num+"");
                 connect.setVisible(false);
 
-                gameState = connection.getGameState();
+                gameState = connection.updateGameState();
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.seconds(1), e -> {
+                            try {
+                                gameState = connection.updateGameState();
+                                update(gameState);
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            } catch (InterruptedException ex) {
+                                ex.printStackTrace();
+                            }
+                        })
+                );
+                timeline.play();
                 update(gameState);
 
                     }
@@ -155,19 +170,20 @@ public class ClientController {
         }
     }
 
+
     // @FXML
     /*protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }*/
     @FXML
     protected void endTurn() throws IOException, InterruptedException {
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
         if (!gameState.getHasRolledDice()) {
             Alert notRolledDice = new Alert(Alert.AlertType.WARNING, "You can't end your turn without rolling the dice!!!", ButtonType.OK);
             notRolledDice.show();
         } else {
             connection.endTurn();
-            gameState = connection.getGameState();
+            gameState = connection.updateGameState();
             update(gameState);
             if (gameState.getCurrentPlayer().isInJail()) {
                 inJailHandler();
@@ -184,7 +200,7 @@ public class ClientController {
     }
 
     protected void inJailHandler() throws IOException, InterruptedException {
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
         Stage window = new Stage();
 
         Text text = new Text("You are in Jail! You may either pay the fine of $50 to leave or attempt to roll a 1 to be let out for free.");
@@ -229,7 +245,7 @@ public class ClientController {
     }
 //Ggamestate set methods need to be made in the server
     private void jailRollDiceClicked(Stage window) throws IOException, InterruptedException {
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
         int rand = ThreadLocalRandom.current().nextInt(1, 7);
         if (rand == 1) {
             gameState.getCurrentPlayer().setInJail(false);
@@ -270,7 +286,7 @@ public class ClientController {
 
     @FXML
     protected void buildHouse() throws IOException, InterruptedException {
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
         ListView<String> listView = new ListView<>();
         for (int i = 0; i < gameState.getCurrentPlayer().getPlayerProperties().size(); i++) {
             listView.getItems().add(gameState.getCurrentPlayer().getPlayerProperties().get(i).getName());
@@ -301,7 +317,7 @@ public class ClientController {
     }
 
     private void buildHouseClicked(ListView<String> listView) throws IOException, InterruptedException {
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
         String propertyName = listView.getSelectionModel().getSelectedItem();
         Property prop = null;
         if (propertyName == null) {
@@ -333,7 +349,7 @@ public class ClientController {
             Alert canNotAfford = new Alert(Alert.AlertType.WARNING, "You can't afford to build a house on " + prop.getName() + " (position " + prop.getPosition() + ")", ButtonType.OK);
             canNotAfford.show();
         }
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
         update(gameState);
     }
 
@@ -414,7 +430,13 @@ public class ClientController {
 
     @FXML
     protected void diceClick() throws IOException, InterruptedException {
-        gameState = connection.getGameState();
+        gameState = connection.updateGameState();
+        if (playerNum != gameState.getTurn()){
+            Alert notYourTurn = new Alert(Alert.AlertType.WARNING,"Its not your turn", ButtonType.OK);
+            notYourTurn.show();
+            return;
+        }
+
         System.out.println(gameState.getPlayerOne().getBank());
         if (gameState.getCurrentPlayer().isInJail()) {
             Alert inJail = new Alert(Alert.AlertType.WARNING, "You're in jail, you can't roll the dice to move!", ButtonType.OK);
@@ -426,7 +448,7 @@ public class ClientController {
             Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + rand + ".png"));
             dicePicture.setImage(diceImage);
             connection.sendDice(rand);
-            gameState = connection.getGameState();
+            gameState=connection.updateGameState();
             update(gameState);
             if(gameState.getPropertyAvailable() != null && gameState.getCurrentPlayer().getBank() > gameState.getPropertyAvailable().getCost()){
                 Alert buyProperty = new Alert(Alert.AlertType.NONE, "Do you want to buy property "+gameState.getPropertyAvailable().getPosition()+", for $"+gameState.getPropertyAvailable().getCost()+"",ButtonType.OK, ButtonType.NO);
@@ -463,7 +485,7 @@ public class ClientController {
                 //Alert canNotAfford = new Alert(Alert.AlertType.NONE, "You are unable to afford this property. It will be auctioned off instead", ButtonType.OK);
                 //canNotAfford.show();
             }
-            gameState = connection.getGameState();
+
             update(gameState);
         }
         else {
@@ -557,5 +579,7 @@ public class ClientController {
 
     }
 
-
+    public boolean isInitialized() {
+        return initialized;
+    }
 }

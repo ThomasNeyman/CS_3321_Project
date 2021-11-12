@@ -55,6 +55,8 @@ public class Connection {
         client = null;
     }
 
+
+
     public HttpRequest createGet(String call){
         return HttpRequest.newBuilder()
                 .uri(URI.create(String.format(call,add,port))).
@@ -71,44 +73,63 @@ public class Connection {
                 .build();
     }
 
-    public void sendDice(int dice) throws IOException, InterruptedException{
+    public State sendDice(int dice) throws IOException, InterruptedException{
         String d = ""+dice;
-        createPost(DICE_CALL,d);
-    }
-
-    public void buyProperty (Property property) throws IOException, InterruptedException{
+        System.out.println(d);
         Gson gson = new Gson();
-        String json = gson.toJson(property);
-        createPost(PROPERTY_CALL,json);
-    }
-
-    public void buyHouse (Property property) throws IOException, InterruptedException{
-        Gson gson = new Gson();
-        String json = gson.toJson(property);
-        createPost(HOUSE_CALL,json);
-    }
-
-    public void endTurn () throws IOException, InterruptedException{
-        createPost(ENDTURN_CALL,"");
-    }
-
-    public void denyProperty (Property property) throws IOException, InterruptedException{
-        Gson gson = new Gson();
-        String json = gson.toJson(property);
-        createPost(DENYPROPERTY_CALL,json);
-    }
-
-
-
-    public State getGameState() throws IOException, InterruptedException {
-        Gson gson = new Gson();
-        HttpRequest request = createGet(UPDATE_CALL);
+        HttpRequest request = createPost(DICE_CALL,d);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;
     }
-    public int getPlayerNum() throws IOException, InterruptedException {
+
+    public State buyProperty (Property property) throws IOException, InterruptedException{
         Gson gson = new Gson();
+        String json = gson.toJson(property);
+        HttpRequest request = createPost(PROPERTY_CALL,json);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+    }
+
+    public State buyHouse (Property property) throws IOException, InterruptedException{
+        Gson gson = new Gson();
+        String json = gson.toJson(property);
+        HttpRequest request = createPost(HOUSE_CALL,json);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+    }
+
+    public State endTurn () throws IOException, InterruptedException{
+        Gson gson = new Gson();
+        HttpRequest request = createPost(ENDTURN_CALL,"");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+
+    }
+
+    public State denyProperty (Property property) throws IOException, InterruptedException{
+        Gson gson = new Gson();
+        String json = gson.toJson(property);
+        HttpRequest request = createPost(DENYPROPERTY_CALL,"");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+    }
+
+
+
+    public State updateGameState() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        HttpRequest request = createGet(UPDATE_CALL);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        //Thread.sleep(1000);
+        return state;
+    }
+    public int getPlayerNum() throws IOException, InterruptedException {
         HttpRequest request = createGet(PLAYERNUM_CALL);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int playerNum = Integer.parseInt(response.body());

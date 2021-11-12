@@ -53,28 +53,30 @@ public class MoServer {
             post("/api/diceRoll", ctx ->
             {
                 System.out.println("Dice Roll");
-                State currentState = monopoly.getGameState();
 
                 //if the player hasn't rolled that turn yet.
                 if (!monopoly.getGameState().getHasRolledDice()) {
                     int diceRoll = ctx.bodyAsClass(int.class);
                     monopoly.updatePlayerPosition(diceRoll);
                 }
-
-                monopoly.setGameState(currentState);
-                /*System.out.println("dice");
                 int diceRoll = ctx.bodyAsClass(Integer.class);
-                monopoly.updatePlayerPosition(diceRoll);*/
+                monopoly.updatePlayerPosition(diceRoll);
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);
             });
 
             post("/api/buyProperty", ctx ->
             {
                 System.out.println("Buy Property");
+
                 Property property = ctx.bodyAsClass(Property.class);
+                System.out.println(property.getCost());
                 //add the property to the player
                 monopoly.updatePlayerProperty(property, monopoly.getGameState().getCurrentPlayer().getPlayerNumber());
-
-
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);
             });
 
             post("/api/denyProperty", ctx ->
@@ -83,7 +85,9 @@ public class MoServer {
                 Property property = ctx.bodyAsClass(Property.class);
                 //player denies the property
                 monopoly.denyProperty(property);
-            });
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);            });
 
             post("/api/endTurn", ctx ->
             {
@@ -102,6 +106,9 @@ public class MoServer {
                     //send message to client that game is over and there is a winner
                     ctx.result("Game Over");
                 }
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);
             });
 
 
@@ -135,7 +142,10 @@ public class MoServer {
                     //send message to client that player doesn't have enough funds.
                     ctx.result("Player doesn't have the money");
                 }
-                monopoly.setGameState(currentState);
+                //monopoly.setGameState(currentState);
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);
 
             });
 

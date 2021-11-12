@@ -259,7 +259,7 @@ public class Monopoly {
 
         // Checking if there are too many houses or if the player doesn't have
         // enough money is checked client-side
-        p.setBank(p.getBank() - prop.getHouseCost());
+       // p.setBank(p.getBank() - prop.getHouseCost());
         prop.incrementHouseNumber();
     }
 

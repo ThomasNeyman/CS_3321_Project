@@ -1,5 +1,4 @@
 package Game;
-
 /**
  * The property class simply holds the information necessary for each
  * property in the game. This includes their cost, rent, and position
@@ -12,10 +11,10 @@ public class Property{
     private int rent;
     private int position;
     private int numberOfHouses;
-    private final int firstHouseRent;
-    private final int secondHouseRent;
-    private final int thirdHouseRent;
-    private final int houseCost;
+    /*private int firstHouseRent;
+    private int secondHouseRent;
+    private int thirdHouseRent;*/
+    private int houseCost;
 
     //Constructor
     public Property(int cost, int rent, int position, String name) {
@@ -23,14 +22,17 @@ public class Property{
         this.rent = rent;
         this.position = position;
         this.name = name;
-        this.numberOfHouses = 0;
+        this.numberOfHouses = 1;
         // Make the extra rent for houses super simple so each one does not need
         // to be assigned its own special values
-        this.firstHouseRent = (int) (rent * 1.5);
+       /* this.firstHouseRent = (int) (rent * 1.5);
         this.secondHouseRent = rent * 2;
         this.thirdHouseRent = (int) (rent * 2.5);
         // multiply by 0.5 instead of divide by 2 because it's faster
-        this.houseCost = (int) (cost * 0.5);
+        this.houseCost = (int) (cost * 0.5);*/
+    }
+    public Property(){
+
     }
 
     //Getters
@@ -39,12 +41,13 @@ public class Property{
     }
 
     public int getRent() {
-        return switch (numberOfHouses) {
+        /*return switch (numberOfHouses) {
             case 1 -> firstHouseRent;
             case 2 -> secondHouseRent;
             case 3 -> thirdHouseRent;
             default -> rent;
-        };
+        };*/
+        return (rent*numberOfHouses);
     }
 
     public int getPosition() {
