@@ -9,6 +9,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
+
 import com.google.gson.Gson;
 
 
@@ -26,6 +28,9 @@ public class Connection {
     private static final String DENYPROPERTY_CALL = "http://%s:%s/api/denyProperty";
     private static final String UPDATE_CALL = "http://%s:%s/api/update";
     private static final String STATUS_CALL = "http://%s:%s/api/status";
+    private static final String PLAYERNUM_CALL = "http://%s:%s/api/playerNum";
+
+
 
     private Connection() {
     }
@@ -57,18 +62,18 @@ public class Connection {
                 build();
     }
 
-    public HttpRequest createPost(String call, String json){
+    public HttpRequest createPost(String call, String string){
         return HttpRequest.newBuilder()
                 .uri(URI.create(String.format(call,add,port)))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .timeout(Duration.ofSeconds(30))
+                .POST(HttpRequest.BodyPublishers.ofString(string))
                 .build();
     }
 
     public void sendDice(int dice) throws IOException, InterruptedException{
-        Gson gson = new Gson();
-        String json = gson.toJson(dice);
-        createPost(DICE_CALL,json);
+        String d = ""+dice;
+        createPost(DICE_CALL,d);
     }
 
     public void buyProperty (Property property) throws IOException, InterruptedException{
@@ -101,6 +106,13 @@ public class Connection {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;
+    }
+    public int getPlayerNum() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        HttpRequest request = createGet(PLAYERNUM_CALL);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        int playerNum = Integer.parseInt(response.body());
+        return playerNum;
     }
 
 
