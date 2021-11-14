@@ -124,6 +124,7 @@ public class ClientController {
     public ClientController() {
 
     }
+
     public void updateUI() throws IOException, InterruptedException {
         gameState = connection.updateGameState();
         update(gameState);
@@ -161,13 +162,14 @@ public class ClientController {
         }
     }
 
-
-    // @FXML
-    /*protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }*/
     @FXML
     protected void endTurn() throws IOException, InterruptedException {
+        if (playerNum != gameState.getTurn()){
+            Alert notYourTurn = new Alert(Alert.AlertType.WARNING,"Its not your turn", ButtonType.OK);
+            notYourTurn.show();
+            return;
+        }
+
         gameState = connection.updateGameState();
         if (!gameState.getHasRolledDice()) {
             Alert notRolledDice = new Alert(Alert.AlertType.WARNING, "You can't end your turn without rolling the dice!!!", ButtonType.OK);
@@ -177,6 +179,7 @@ public class ClientController {
             gameState = connection.updateGameState();
             update(gameState);
             if (gameState.getCurrentPlayer().isInJail()) {
+                gameState = connection.updateGameState();
                 inJailHandler();
             }
         }
@@ -213,12 +216,28 @@ public class ClientController {
         Button payFine = new Button("Pay Fine");
         payFine.setStyle("-fx-font-size:28");
         payFine.setPrefSize(200, 100);
-        payFine.setOnAction(e -> jailPayFineClicked(window));
+        payFine.setOnAction(e -> {
+            try {
+                jailPayFineClicked(window);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         Button getOutFree = new Button("Use \"Get out of jail FREE\" card");
         getOutFree.setStyle("-fx-font-size:12");
         getOutFree.setPrefSize(200, 100);
-        getOutFree.setOnAction(e -> jailGetOutFree(window));
+        getOutFree.setOnAction(e -> {
+            try {
+                jailGetOutFree(window);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(text, rollDice, payFine, getOutFree);
@@ -232,42 +251,49 @@ public class ClientController {
         window.setScene(scene);
         window.showAndWait();
 
+        gameState = connection.updateGameState();
         update(gameState);
     }
-//Ggamestate set methods need to be made in the server
+
     private void jailRollDiceClicked(Stage window) throws IOException, InterruptedException {
-        gameState = connection.updateGameState();
         int rand = ThreadLocalRandom.current().nextInt(1, 7);
+        connection.jailRoll(rand);
+        gameState = connection.updateGameState();
+        update(gameState);
+
         if (rand == 1) {
-            gameState.getCurrentPlayer().setInJail(false);
             Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a 1. You are now free from Jail!", ButtonType.OK);
             alert.showAndWait().ifPresent(confirm -> {
                 if (confirm == ButtonType.OK) window.close();
             });
         } else {
-            gameC.state.setHasRolledDice(true);
             Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a " + rand + ". You will remain in Jail this turn!", ButtonType.OK);
             alert.showAndWait().ifPresent(confirm -> {
                 if (confirm == ButtonType.OK) window.close();
             });
         }
+        //gameState = connection.updateGameState();
     }
 
-    private void jailPayFineClicked(Stage window) {
-        if (gameC.state.getCurrentPlayer().getBank() >= 50) {
-            gameC.state.getCurrentPlayer().setBank(gameC.state.getCurrentPlayer().getBank() - 50);
-            gameC.state.getCurrentPlayer().setInJail(false);
+    private void jailPayFineClicked(Stage window) throws IOException, InterruptedException {
+        connection.jailPay();
+        gameState = connection.updateGameState();
+        update(gameState);
+
+        if (!gameState.getCurrentPlayer().isInJail()) {
             window.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You don't have enough money to pay the fine! You will need to roll instead.", ButtonType.OK);
             alert.show();
         }
+        gameState = connection.updateGameState();
     }
 
-    private void jailGetOutFree(Stage window) {
-        if (gameC.state.getCurrentPlayer().isHasGOJFC()) {
-            gameC.state.getCurrentPlayer().setInJail(false);
-            gameC.state.getCurrentPlayer().setHasGOJFC(false);
+    private void jailGetOutFree(Stage window) throws IOException, InterruptedException {
+        gameState = connection.updateGameState();
+        connection.jailCard();
+        update(gameState);
+        if (gameState.getCurrentPlayer().isInJail()) {
             window.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You don't have a \"Get out of Jail FREE\" card...", ButtonType.OK);
@@ -277,6 +303,12 @@ public class ClientController {
 
     @FXML
     protected void buildHouse() throws IOException, InterruptedException {
+        if (playerNum != gameState.getTurn()){
+            Alert notYourTurn = new Alert(Alert.AlertType.WARNING,"Its not your turn", ButtonType.OK);
+            notYourTurn.show();
+            return;
+        }
+
         gameState = connection.updateGameState();
         ListView<String> listView = new ListView<>();
         for (int i = 0; i < gameState.getCurrentPlayer().getPlayerProperties().size(); i++) {
@@ -305,11 +337,14 @@ public class ClientController {
         window.setTitle("Select a property");
         window.setScene(scene);
         window.show();
+
+        gameState = connection.updateGameState();
     }
 
     private void buildHouseClicked(ListView<String> listView) throws IOException, InterruptedException {
         gameState = connection.updateGameState();
         String propertyName = listView.getSelectionModel().getSelectedItem();
+
         Property prop = null;
         if (propertyName == null) {
             Alert nothingSelected = new Alert(Alert.AlertType.WARNING, "Nothing is Selected!", ButtonType.OK);
@@ -328,20 +363,17 @@ public class ClientController {
             return;
         }
 
-        if (gameState.getCurrentPlayer().getBank() > prop.getHouseCost()) {
-            if (prop.getNumberOfHouses() != 3) {
-                gameC.state.getCurrentPlayer().setBank(gameC.state.getCurrentPlayer().getBank() - prop.getHouseCost());
-                gameC.game.updatePropertyHouseNumber(prop);
-            } else {
-                Alert tooManyHouses = new Alert(Alert.AlertType.WARNING, "This property already has the maximum number of houses!", ButtonType.OK);
-                tooManyHouses.show();
-            }
-        } else {
-            Alert canNotAfford = new Alert(Alert.AlertType.WARNING, "You can't afford to build a house on " + prop.getName() + " (position " + prop.getPosition() + ")", ButtonType.OK);
-            canNotAfford.show();
-        }
+        connection.buyHouse(prop);
         gameState = connection.updateGameState();
         update(gameState);
+
+        if (prop.getNumberOfHouses() > 3) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Too many houses", ButtonType.OK);
+            alert.show();
+        }
+
+        Alert alert = new Alert(Alert.AlertType.NONE, "This property has " + prop.getNumberOfHouses() + " Houses on it", ButtonType.OK);
+        alert.show();
     }
 
     @FXML

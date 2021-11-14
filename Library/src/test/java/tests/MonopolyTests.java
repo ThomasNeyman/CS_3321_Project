@@ -172,11 +172,14 @@ public class MonopolyTests {
         Assertions.assertEquals(5, m.getGameState().getCommunityChest());
     }
 
+    @Test
+    @DisplayName("Test for updating the number of houses on a property")
+    public void testBuildHouses() {
+
+    }
+
     //TODO
     // Make tests for Monopoly.updatePropertyHouseNumber() function
-    // Make test for checking NullPointerException on Monopoly.updatePropertyHouseNumber()
-    // Test for what happens when player tries to buy a house without enough money
-    // Test for what happens when player tries to buy more than 3 houses
     // Make tests for Monopoly.endTurn() function
     // Make sure available property is set to null after being purchased
 

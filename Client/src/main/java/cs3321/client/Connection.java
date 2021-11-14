@@ -29,6 +29,9 @@ public class Connection {
     private static final String UPDATE_CALL = "http://%s:%s/api/update";
     private static final String STATUS_CALL = "http://%s:%s/api/status";
     private static final String PLAYERNUM_CALL = "http://%s:%s/api/playerNum";
+    private static final String JAIL_ROLL_CALL = "http://%s:%s/api/jailRoll";
+    private static final String JAIL_PAY_CALL = "http://%s:%s/api/jailPay";
+    private static final String JAIL_CARD_CALL = "http://%s:%s/api/jailCard";
 
 
 
@@ -55,8 +58,6 @@ public class Connection {
         client = null;
     }
 
-
-
     public HttpRequest createGet(String call){
         return HttpRequest.newBuilder()
                 .uri(URI.create(String.format(call,add,port))).
@@ -78,6 +79,32 @@ public class Connection {
         System.out.println(d);
         Gson gson = new Gson();
         HttpRequest request = createPost(DICE_CALL,d);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+    }
+
+    public State jailRoll(int roll) throws IOException, InterruptedException {
+        String s = "" + roll;
+        System.out.println(s);
+        Gson gson = new Gson();
+        HttpRequest request = createPost(JAIL_ROLL_CALL, s);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+    }
+
+    public State jailPay() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        HttpRequest request = createPost(JAIL_PAY_CALL, "");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        State state = gson.fromJson(response.body(), State.class);
+        return state;
+    }
+
+    public State jailCard() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        HttpRequest request = createPost(JAIL_CARD_CALL, "");
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;
@@ -113,13 +140,11 @@ public class Connection {
     public State denyProperty (Property property) throws IOException, InterruptedException{
         Gson gson = new Gson();
         String json = gson.toJson(property);
-        HttpRequest request = createPost(DENYPROPERTY_CALL,"");
+        HttpRequest request = createPost(DENYPROPERTY_CALL,json);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;
     }
-
-
 
     public State updateGameState() throws IOException, InterruptedException {
         Gson gson = new Gson();
@@ -129,14 +154,13 @@ public class Connection {
         //Thread.sleep(1000);
         return state;
     }
+
     public int getPlayerNum() throws IOException, InterruptedException {
         HttpRequest request = createGet(PLAYERNUM_CALL);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int playerNum = Integer.parseInt(response.body());
         return playerNum;
     }
-
-
 
     public boolean test() {
         HttpRequest request = createGet(STATUS_CALL);
@@ -147,4 +171,5 @@ public class Connection {
         } catch (IOException | InterruptedException ex) {
             return false;
         }
-    }}
+    }
+}

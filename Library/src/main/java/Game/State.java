@@ -155,6 +155,63 @@ public class State {
         else{return playerTwo;}
     }
 
+    /**
+     * Function checks whether the current player trying to roll out of jail
+     * rolled a 1 or not. If they did, set their inJail value to false, otherwise
+     * set their 'hasRolled' to true so they can't roll again
+     * @param rand the dice value passed in
+     */
+    public void rollToLeaveJail(int rand) {
+        if (rand == 1) {
+            getCurrentPlayer().setInJail(false);
+            setHasRolledDice(false);
+        } else {
+            setHasRolledDice(true);
+            getCurrentPlayer().setInJail(true);
+        }
+    }
+
+    /**
+     * Function is called when the player attempts to pay their way out of jail.
+     * If they have more than $50 in their bank, setInJail becomes false, otherwise
+     * remains true
+     */
+    public void payToLeaveJail() {
+        if (getCurrentPlayer().getBank() >= 50) {
+            getCurrentPlayer().setBank(getCurrentPlayer().getBank() - 50);
+            getCurrentPlayer().setInJail(false);
+            setHasRolledDice(false);
+        } else {
+            getCurrentPlayer().setInJail(true);
+            setHasRolledDice(true);
+        }
+    }
+
+    /**
+     * Function determines whether the player has the 'Get out of jail free' card
+     * If they do, setInJail becomes false and so does their 'hasGOJFC'
+     */
+    public void useGetOutOfJailFreeCard() {
+        if (getCurrentPlayer().isHasGOJFC()) {
+            getCurrentPlayer().setInJail(false);
+            getCurrentPlayer().setHasGOJFC(false);
+            setHasRolledDice(false);
+        } else {
+            getCurrentPlayer().setInJail(true);
+            setHasRolledDice(true);
+        }
+    }
+
+    /**
+     * This function handles a player buying a house on a property. They can call this
+     * function at any time during their turn. This function should be able to be called
+     * from the UI at any point during the player's turn.
+     * @param prop the property the player wants to add a house to
+     */
+    public void updatePropertyHouseNumber(Property prop) {
+        prop.incrementHouseNumber();
+    }
+
     @Override
     public String toString() {
         String s = "State{" +

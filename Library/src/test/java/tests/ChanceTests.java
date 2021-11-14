@@ -24,8 +24,8 @@ public class ChanceTests {
     public void testDraw_1() throws Exception {
         Chance.getChanceResult(1, p, state);
         Assertions.assertEquals(0, p.getPosition());
-        Assertions.assertEquals(1700, p.getBank());
-        // The player should be placed at GO and add $200 to their bank
+        Assertions.assertEquals(1500, p.getBank());
+        // The player should be placed at GO
     }
 
     @Test
@@ -44,9 +44,9 @@ public class ChanceTests {
         p.setPosition(26);
         Chance.getChanceResult(2, p, state);
         Assertions.assertEquals(10, p.getPosition());
-        Assertions.assertEquals(1700, p.getBank());
+        Assertions.assertEquals(1500, p.getBank());
         // Player should be on position of Boardwalk
-        // player should have passed GO on the way to the property and collected 200$
+        // player should have passed GO on the way
     }
 
     @Test
@@ -135,9 +135,9 @@ public class ChanceTests {
         Chance.getChanceResult(3, p, state);
 
         Assertions.assertEquals(5, p.getPosition());
-        Assertions.assertEquals(1900, p.getBank());
+        Assertions.assertEquals(1700, p.getBank());
         // Player should have moved to GO, then Boardwalk, then Illinois Ave
-        // with +$400 in their bank
+        // with +$200 in their bank
     }
 
 }

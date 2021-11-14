@@ -41,7 +41,4 @@ public class PropertyTests {
         Assertions.assertEquals(10, p.getPosition());
     }
 
-    //TODO
-    // Make tests to make sure the values of house rents and costs will be integers
-
 }

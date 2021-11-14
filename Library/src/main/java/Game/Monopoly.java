@@ -248,22 +248,6 @@ public class Monopoly {
     }
 
     /**
-     * This function handles a player buying a house on a property. They can call this
-     * function at any time during their turn. This function should be able to be called
-     * from the UI at any point during the player's turn.
-     * @param prop the property the player wants to add a house to
-     */
-    public void updatePropertyHouseNumber(Property prop) {
-        // which player is building a house
-        Player p = gameState.getCurrentPlayer();
-
-        // Checking if there are too many houses or if the player doesn't have
-        // enough money is checked client-side
-       // p.setBank(p.getBank() - prop.getHouseCost());
-        prop.incrementHouseNumber();
-    }
-
-    /**
      * This function be called when the player decides to manually end their turn
      * and the State.changeTurn() function can be called. The player's turn
      * shouldn't end until they hit an 'end turn' button and this function is called.

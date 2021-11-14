@@ -66,6 +66,32 @@ public class MoServer {
                 ctx.json(state);
             });
 
+            post("/api/jailRoll", ctx -> {
+                System.out.println("Dice Roll in Jail");
+
+                int roll = ctx.bodyAsClass(int.class);
+                monopoly.getGameState().rollToLeaveJail(roll);
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);
+            });
+
+            post("/api/jailPay", ctx -> {
+               System.out.println("Pay Jail Fine");
+
+               monopoly.getGameState().payToLeaveJail();
+               Gson gson = new Gson();
+               String state = gson.toJson(monopoly.getGameState());
+               ctx.json(state);
+            });
+
+            post("/api/jailCard", ctx -> {
+                monopoly.getGameState().useGetOutOfJailFreeCard();
+                Gson gson = new Gson();
+                String state = gson.toJson(monopoly.getGameState());
+                ctx.json(state);
+            });
+
             post("/api/buyProperty", ctx ->
             {
                 System.out.println("Buy Property");
@@ -87,7 +113,8 @@ public class MoServer {
                 monopoly.denyProperty(property);
                 Gson gson = new Gson();
                 String state = gson.toJson(monopoly.getGameState());
-                ctx.json(state);            });
+                ctx.json(state);
+            });
 
             post("/api/endTurn", ctx ->
             {
@@ -112,30 +139,18 @@ public class MoServer {
             });
 
 
-            post("/api/buildHouse", ctx ->
+            post("/api/buyHouse", ctx ->
             {
-                System.out.println("Build House");
-                String propertyName = ctx.bodyAsClass(String.class);
-                Property prop = null;
+                System.out.println("Buy House");
+                Property prop = ctx.bodyAsClass(Property.class);
                 State currentState = monopoly.getGameState();
-                //selects property that player wants to build house on
-                for (int i = 0; i < currentState.getCurrentPlayer().getPlayerProperties().size(); i++) {
-                    if (Objects.equals(currentState.getCurrentPlayer().getPlayerProperties().get(i).getName(), propertyName)) {
-                        prop = currentState.getCurrentPlayer().getPlayerProperties().get(i);
-                    }
-                }
-
-                if (prop == null) {
-                    //send message to client that they cannot select that property
-                    ctx.result("Player doesn't own property");
-                }
 
                 if (currentState.getCurrentPlayer().getBank() >= prop.getHouseCost()) {
                     if (prop.getNumberOfHouses() != 3) {
                         currentState.getCurrentPlayer().setBank(currentState.getCurrentPlayer().getBank() - prop.getHouseCost());
-                        monopoly.updatePropertyHouseNumber(prop);
+                        currentState.updatePropertyHouseNumber(prop);
                     } else {
-                        //send messaage to client that there is already max houses
+                        //send message to client that there is already max houses
                         ctx.result("Property has full houses");
                     }
                 } else {

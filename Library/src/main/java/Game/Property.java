@@ -81,6 +81,6 @@ public class Property{
 
     // Increase the number of houses on the specific property by 1
     public void incrementHouseNumber() {
-        this.numberOfHouses += 1;
+        this.numberOfHouses++;
     }
 }
