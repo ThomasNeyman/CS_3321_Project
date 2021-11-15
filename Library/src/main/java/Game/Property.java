@@ -17,6 +17,15 @@ public class Property{
     private int houseCost;
 
     //Constructor
+
+    /**
+     * Constructor for the Property Class
+     * @param cost the integer value that a player needs to pay in order to purchase that property
+     * @param rent the integer value that a player pays when landing on the opposing players property this value can be upgraded if the player who owns the property
+     *             decides to purchase houses for it.
+     * @param position the property's position on the board
+     * @param name the string describing the property name
+     */
     public Property(int cost, int rent, int position, String name) {
         this.cost = cost;
         this.rent = rent;

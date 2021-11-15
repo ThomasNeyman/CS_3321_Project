@@ -50,6 +50,10 @@ public class MoServer {
                 ctx.json(state);
             });
 
+            /**
+             * dice roll post rout it recieves the random dice roll from the client and updates the players position accordingly
+             */
+
             post("/api/diceRoll", ctx ->
             {
                 System.out.println("Dice Roll");
@@ -65,6 +69,9 @@ public class MoServer {
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
             });
+            /**
+             * post route for player trying to roll his way out of jail
+             */
 
             post("/api/jailRoll", ctx -> {
                 System.out.println("Dice Roll in Jail");
@@ -75,6 +82,9 @@ public class MoServer {
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
             });
+            /**
+             * post route for when player decides to pay the jail fine
+             */
 
             post("/api/jailPay", ctx -> {
                System.out.println("Pay Jail Fine");
@@ -84,6 +94,9 @@ public class MoServer {
                String state = gson.toJson(monopoly.getGameState());
                ctx.json(state);
             });
+            /**
+             * post route for using the get out of jail free card
+             */
 
             post("/api/jailCard", ctx -> {
                 monopoly.getGameState().useGetOutOfJailFreeCard();
@@ -91,6 +104,9 @@ public class MoServer {
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
             });
+            /**
+             * post route for buying a property after landing on unknown property.
+             */
 
             post("/api/buyProperty", ctx ->
             {
@@ -104,6 +120,9 @@ public class MoServer {
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
             });
+            /**
+             * post route when a user lands on unowned property but doesn't want to purchase it
+             */
 
             post("/api/denyProperty", ctx ->
             {
@@ -115,6 +134,9 @@ public class MoServer {
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
             });
+            /**
+             * post route for player ending turn. The player cannot end turn if they haven't rolled and it also checks to see if there is a winner each turn
+             */
 
             post("/api/endTurn", ctx ->
             {
@@ -138,7 +160,10 @@ public class MoServer {
                 ctx.json(state);
             });
 
-
+/**
+ * post route for updating the game state after the user decides to build a house on an owned property
+ * sends results to client if the property is ineligible for houses for that player
+ */
             post("/api/buyHouse", ctx ->
             {
                 System.out.println("Buy House");
@@ -164,12 +189,14 @@ public class MoServer {
 
             });
 
-
             //status handler
             get("api/status", ctx -> {
                 ctx.result("OK");
             });
 
+            /**
+             * get route so client can determine number of players joined in the game.
+             */
             get("api/playerNum",ctx ->{
                 if(playerNum > 1){return;}
                 int num = Integer.valueOf(playerNum);
