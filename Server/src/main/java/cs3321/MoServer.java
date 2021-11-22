@@ -170,10 +170,16 @@ public class MoServer {
                 Property prop = ctx.bodyAsClass(Property.class);
                 State currentState = monopoly.getGameState();
 
+                // This is the only way I could get it to work
                 if (currentState.getCurrentPlayer().getBank() >= prop.getHouseCost()) {
-                    if (prop.getNumberOfHouses() != 3) {
+                    if (prop.getNumberOfHouses() < 3) {
                         currentState.getCurrentPlayer().setBank(currentState.getCurrentPlayer().getBank() - prop.getHouseCost());
-                        currentState.updatePropertyHouseNumber(prop);
+                        for (int i = 0; i < currentState.getCurrentPlayer().getPlayerProperties().size(); i++) {
+                            if (Objects.equals(currentState.getCurrentPlayer().getPlayerProperties().get(i).getName(), prop.getName())) {
+                                int value = currentState.getCurrentPlayer().getPlayerProperties().get(i).getNumberOfHouses();
+                                currentState.getCurrentPlayer().getPlayerProperties().get(i).setNumberOfHouses(value + 1);
+                            }
+                        }
                     } else {
                         //send message to client that there is already max houses
                         ctx.result("Property has full houses");
@@ -182,11 +188,9 @@ public class MoServer {
                     //send message to client that player doesn't have enough funds.
                     ctx.result("Player doesn't have the money");
                 }
-                //monopoly.setGameState(currentState);
                 Gson gson = new Gson();
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
-
             });
 
             //status handler

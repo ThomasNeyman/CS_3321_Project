@@ -31,14 +31,15 @@ public class Property{
         this.rent = rent;
         this.position = position;
         this.name = name;
-        this.numberOfHouses = 1;
+        this.numberOfHouses = 0;
         // Make the extra rent for houses super simple so each one does not need
         // to be assigned its own special values
        /* this.firstHouseRent = (int) (rent * 1.5);
         this.secondHouseRent = rent * 2;
         this.thirdHouseRent = (int) (rent * 2.5);
+        */
         // multiply by 0.5 instead of divide by 2 because it's faster
-        this.houseCost = (int) (cost * 0.5);*/
+        this.houseCost = (int) (cost * 0.5);
     }
     public Property(){
 
@@ -50,13 +51,7 @@ public class Property{
     }
 
     public int getRent() {
-        /*return switch (numberOfHouses) {
-            case 1 -> firstHouseRent;
-            case 2 -> secondHouseRent;
-            case 3 -> thirdHouseRent;
-            default -> rent;
-        };*/
-        return (rent*numberOfHouses);
+        return (rent* (numberOfHouses + 1));
     }
 
     public int getPosition() {
@@ -86,6 +81,9 @@ public class Property{
 
     public void setPosition(int position) {
         this.position = position;
+    }
+    public void setNumberOfHouses(int num) {
+        this.numberOfHouses = num;
     }
 
     // Increase the number of houses on the specific property by 1

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.*;
@@ -120,6 +121,7 @@ public class ClientController {
     Connection connection = Connection.instance();
     private int playerNum = -1;
     private State gameState;
+    private HBox buyHouseBox;
 
     public ClientController() {
 
@@ -311,12 +313,24 @@ public class ClientController {
 
         gameState = connection.updateGameState();
         ListView<String> listView = new ListView<>();
+        ListView<String> prices = new ListView<>();
+        ListView<String> numHouses = new ListView<>();
+        listView.setPrefSize(150, 300);
+        prices.setPrefSize(40, 300);
+        numHouses.setPrefSize(40, 300);
         for (int i = 0; i < gameState.getCurrentPlayer().getPlayerProperties().size(); i++) {
             listView.getItems().add(gameState.getCurrentPlayer().getPlayerProperties().get(i).getName());
+            prices.getItems().add("$" + String.valueOf(gameState.getCurrentPlayer().getPlayerProperties().get(i).getHouseCost()));
+            numHouses.getItems().add(String.valueOf(gameState.getCurrentPlayer().getPlayerProperties().get(i).getNumberOfHouses()));
         }
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        prices.setMouseTransparent(true);
+        prices.setFocusTraversable(false);
+        numHouses.setMouseTransparent(true);
+        numHouses.setFocusTraversable(false);
 
         Button button = new Button("Build House");
+        button.setPrefSize(100, 100);
         button.setOnAction(e -> {
             try {
                 buildHouseClicked(listView);
@@ -327,18 +341,23 @@ public class ClientController {
             }
         });
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(listView, button);
-        layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.setAlignment(Pos.CENTER);
+        buyHouseBox = new HBox(5, prices, listView, numHouses, button);
+        buyHouseBox.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout,300, 300);
+        Scene scene = new Scene(buyHouseBox,350, 300);
         Stage window = new Stage();
         window.setTitle("Select a property");
         window.setScene(scene);
         window.show();
+    }
 
-        gameState = connection.updateGameState();
+    private void buyHouseBoxUpdate() {
+        ListView<String> temp = new ListView<>();
+        temp.setPrefSize(40, 300);
+        for (int i = 0; i < gameState.getCurrentPlayer().getPlayerProperties().size(); i++) {
+            temp.getItems().add(String.valueOf(gameState.getCurrentPlayer().getPlayerProperties().get(i).getNumberOfHouses()));
+        }
+        buyHouseBox.getChildren().set(2, temp);
     }
 
     private void buildHouseClicked(ListView<String> listView) throws IOException, InterruptedException {
@@ -363,17 +382,17 @@ public class ClientController {
             return;
         }
 
-        connection.buyHouse(prop);
-        gameState = connection.updateGameState();
-        update(gameState);
-
-        if (prop.getNumberOfHouses() > 3) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Too many houses", ButtonType.OK);
+        if (prop.getNumberOfHouses() == 3) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "This property has the Max number of houses built!", ButtonType.OK);
             alert.show();
+            return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.NONE, "This property has " + prop.getNumberOfHouses() + " Houses on it", ButtonType.OK);
-        alert.show();
+        connection.buyHouse(prop);
+        update(gameState);
+        gameState = connection.updateGameState();
+
+        buyHouseBoxUpdate();
     }
 
     @FXML

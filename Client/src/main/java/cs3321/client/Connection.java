@@ -198,7 +198,7 @@ public class Connection {
     public State buyHouse (Property property) throws IOException, InterruptedException{
         Gson gson = new Gson();
         String json = gson.toJson(property);
-        HttpRequest request = createPost(HOUSE_CALL,json);
+        HttpRequest request = createPost(HOUSE_CALL, json);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;
