@@ -8,6 +8,7 @@ import Game.State;
 import com.google.gson.Gson;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 import java.util.Objects;
@@ -60,11 +61,11 @@ public class MoServer {
 
                 //if the player hasn't rolled that turn yet.
                 if (!monopoly.getGameState().getHasRolledDice()) {
-                    int diceRoll = ctx.bodyAsClass(int.class);
-                    monopoly.updatePlayerPosition(diceRoll);
+                    int rand = ThreadLocalRandom.current().nextInt(1, 7);
+                    monopoly.updatePlayerPosition(rand);
                 }
-                int diceRoll = ctx.bodyAsClass(Integer.class);
-                monopoly.updatePlayerPosition(diceRoll);
+                //int diceRoll = ctx.bodyAsClass(Integer.class);
+                //monopoly.updatePlayerPosition(diceRoll);
                 Gson gson = new Gson();
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
@@ -76,8 +77,10 @@ public class MoServer {
             post("/api/jailRoll", ctx -> {
                 System.out.println("Dice Roll in Jail");
 
-                int roll = ctx.bodyAsClass(int.class);
-                monopoly.getGameState().rollToLeaveJail(roll);
+                int rand = ThreadLocalRandom.current().nextInt(1, 7);
+                System.out.println("They rolled a " + rand);
+                monopoly.getGameState().rollToLeaveJail(rand);
+                monopoly.getGameState().setDiceValue(rand);
                 Gson gson = new Gson();
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);

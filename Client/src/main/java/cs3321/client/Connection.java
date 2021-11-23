@@ -105,36 +105,28 @@ public class Connection {
     }
 
     /**
-     * sends dice integer value and then returns the state after the player has moved
-     * @param dice
+     * Sends api call to server to roll the dice to move the player
      * @return an updated game state from the server
      * @throws IOException if there was a problem connecting to the server
      * @throws InterruptedException if the update timed out
      */
-
-    public State sendDice(int dice) throws IOException, InterruptedException{
-        String d = ""+dice;
-        System.out.println(d);
+    public State sendDice() throws IOException, InterruptedException{
         Gson gson = new Gson();
-        HttpRequest request = createPost(DICE_CALL,d);
+        HttpRequest request = createPost(DICE_CALL, "");
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;
     }
 
     /**
-     * sends integer dice value to see if the player rolled his way out of jail
-     * @param roll
+     * Sends api call to server to roll the dice for the player to leave jail
      * @return the updated state of whether the player is still in jail or not
      * @throws IOException if there was a problem connecting the server
      * @throws InterruptedException if the update timed out
      */
-
-    public State jailRoll(int roll) throws IOException, InterruptedException {
-        String s = "" + roll;
-        System.out.println(s);
+    public State jailRoll() throws IOException, InterruptedException {
         Gson gson = new Gson();
-        HttpRequest request = createPost(JAIL_ROLL_CALL, s);
+        HttpRequest request = createPost(JAIL_ROLL_CALL, "");
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         State state = gson.fromJson(response.body(), State.class);
         return state;

@@ -195,6 +195,14 @@ public class ClientController {
         }
     }
 
+    /**
+     * After ending a turn, it is detected whether the current player is
+     * in jail. If they are, the inJailHandler is called. When called, A VBox that can not
+     * be closed if created with 3 button options. Roll Dice, Pay Fine, or use Get Out Of
+     * Jail Free Card. The VBox is added to the scene and shown to the player.
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     protected void inJailHandler() throws IOException, InterruptedException {
         gameState = connection.updateGameState();
         Stage window = new Stage();
@@ -257,26 +265,40 @@ public class ClientController {
         update(gameState);
     }
 
+    /**
+     * If the player decides to try and roll to get out of jail, this function is called.
+     * A call is made to the server to see if the player rolled a '1' to get out of jail.
+     * After the result is sent back, the window is closed and the player's turn resumes.
+     * @param window The window that prompts the user for their decision
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     private void jailRollDiceClicked(Stage window) throws IOException, InterruptedException {
-        int rand = ThreadLocalRandom.current().nextInt(1, 7);
-        connection.jailRoll(rand);
+        connection.jailRoll();
         gameState = connection.updateGameState();
         update(gameState);
 
-        if (rand == 1) {
+        if (gameState.getDiceValue() == 1) {
             Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a 1. You are now free from Jail!", ButtonType.OK);
             alert.showAndWait().ifPresent(confirm -> {
                 if (confirm == ButtonType.OK) window.close();
             });
         } else {
-            Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a " + rand + ". You will remain in Jail this turn!", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.NONE, "You rolled a " + gameState.getDiceValue() + ". You will remain in Jail this turn!", ButtonType.OK);
             alert.showAndWait().ifPresent(confirm -> {
                 if (confirm == ButtonType.OK) window.close();
             });
         }
-        //gameState = connection.updateGameState();
     }
 
+    /**
+     * If the player decides to pay a fine to get out of jail, this function is called.
+     * A call is made to the server to pay the fine from the player's account and the
+     * window is closed and the player's turn continues.
+     * @param window The window that prompts the user for their decision
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     private void jailPayFineClicked(Stage window) throws IOException, InterruptedException {
         connection.jailPay();
         gameState = connection.updateGameState();
@@ -291,6 +313,14 @@ public class ClientController {
         gameState = connection.updateGameState();
     }
 
+    /**
+     * If the player decides to try and use a Get Out Of Jail Free card, this function is called.
+     * A call is sent to the server to try and let the player get out using their card. If they
+     * don't have a card, the window does not close, and they are forced to instead roll or pay.
+     * @param window The window that prompts the user for their decision
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     private void jailGetOutFree(Stage window) throws IOException, InterruptedException {
         gameState = connection.updateGameState();
         connection.jailCard();
@@ -303,6 +333,15 @@ public class ClientController {
         }
     }
 
+    /**
+     * This function handles the actionable event of a player selecting the build house
+     * button on the UI. ListViews are created of the current player's list of properties,
+     * the amount of houses on each property, and how much it costs to build a house on
+     * each property. An HBox is created containing the ListViews as well as a button to
+     * confirm building a house. The scene is then launched.
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     @FXML
     protected void buildHouse() throws IOException, InterruptedException {
         if (playerNum != gameState.getTurn()){
@@ -351,6 +390,11 @@ public class ClientController {
         window.show();
     }
 
+    /**
+     * After the player decides to build a house, the number of houses on a property shown
+     * in the buildHouse HBox needs to be updated. This function simply refreshes the
+     * ListView for the number of Houses on a property for the player to see.
+     */
     private void buyHouseBoxUpdate() {
         ListView<String> temp = new ListView<>();
         temp.setPrefSize(40, 300);
@@ -360,6 +404,16 @@ public class ClientController {
         buyHouseBox.getChildren().set(2, temp);
     }
 
+    /**
+     * Function handles building a house on a selected property. The ListView containing the list of
+     * properties is passed in. The listView will contain a string of the selected property. If it does
+     * not, return. Loop through the player's properties and find a match for the listView property and
+     * the property name in the player's properties. Once found, set a property variable equal to that
+     * specified property. That property is then sent to the server to be executed.
+     * @param listView The list of player properties where one property is selected
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     private void buildHouseClicked(ListView<String> listView) throws IOException, InterruptedException {
         gameState = connection.updateGameState();
         String propertyName = listView.getSelectionModel().getSelectedItem();
@@ -370,7 +424,6 @@ public class ClientController {
             nothingSelected.show();
             return;
         }
-
         for (int i = 0; i < gameState.getCurrentPlayer().getPlayerProperties().size(); i++) {
             if (Objects.equals(gameState.getCurrentPlayer().getPlayerProperties().get(i).getName(), propertyName)) {
                 prop = gameState.getCurrentPlayer().getPlayerProperties().get(i);
@@ -381,9 +434,13 @@ public class ClientController {
             errorChoosingHouse.show();
             return;
         }
-
         if (prop.getNumberOfHouses() == 3) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "This property has the Max number of houses built!", ButtonType.OK);
+            alert.show();
+            return;
+        }
+        if (gameState.getCurrentPlayer().getBank() < prop.getHouseCost()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You don't have enough money to buy this property!", ButtonType.OK);
             alert.show();
             return;
         }
@@ -470,6 +527,16 @@ public class ClientController {
         });
     }
 
+    /**
+     * Function is called when the player clicks on the dice to move in the game. If the player
+     * is in jail or has already rolled the dice this round, the function returns. The function
+     * then sends a call to the connection class to roll the dice. The state is updated and
+     * the player's position is moved based on what the value of the diceRoll is in the State
+     * class. If the player landed on a property that can be bought and they can afford it, they
+     * are prompted if they would like to buy it.
+     * @throws IOException when an IO exception occurs
+     * @throws InterruptedException when an unexpected interruption occurs
+     */
     @FXML
     protected void diceClick() throws IOException, InterruptedException {
         gameState = connection.updateGameState();
@@ -486,12 +553,14 @@ public class ClientController {
             return;
         }
         if (!gameState.getHasRolledDice()) {
-            int rand = ThreadLocalRandom.current().nextInt(1, 7);
-            Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + rand + ".png"));
-            dicePicture.setImage(diceImage);
-            connection.sendDice(rand);
+            connection.sendDice();
             gameState=connection.updateGameState();
+
+            Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + gameState.getDiceValue() + ".png"));
+            dicePicture.setImage(diceImage);
+
             update(gameState);
+
             if(gameState.getPropertyAvailable() != null && gameState.getCurrentPlayer().getBank() > gameState.getPropertyAvailable().getCost()){
                 Alert buyProperty = new Alert(Alert.AlertType.NONE, "Do you want to buy property "+gameState.getPropertyAvailable().getPosition()+", for $"+gameState.getPropertyAvailable().getCost()+"",ButtonType.OK, ButtonType.NO);
 
@@ -523,9 +592,6 @@ public class ClientController {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                // Just because the property is denied doesn't mean it's because the person can't afford it, error check this
-                //Alert canNotAfford = new Alert(Alert.AlertType.NONE, "You are unable to afford this property. It will be auctioned off instead", ButtonType.OK);
-                //canNotAfford.show();
             }
 
             update(gameState);
@@ -536,7 +602,11 @@ public class ClientController {
         }
     }
 
-
+    /**
+     * Updates the UI of the board to reflect the current state of the game. Takes all the values
+     * from the game's current State to determine what is updated.
+     * @param gameState the current state of the game
+     */
     private void update(State gameState){
         //defines color of each rectangle, blue for playerone, red for playertwo, nad grey for the rest
         Rectangle[] tile = {s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s21,s21,s22,s23,s24,s25,s26,s27};
