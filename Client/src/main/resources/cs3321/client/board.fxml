@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs3321.client.ClientController" onMouseMoved="#updateUI">
+<Pane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#updateUI" prefHeight="650.0" prefWidth="600.0" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs3321.client.ClientController">
    <children>
       <VBox prefHeight="650.0" prefWidth="600.0">
          <children>
@@ -29,7 +29,7 @@
                         </Pane>
                         <Pane prefHeight="75.0" prefWidth="75.0">
                            <children>
-                              <Rectangle id="2" fx:id="s1" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
+                              <Rectangle id="2" fx:id="s1" arcHeight="5.0" arcWidth="5.0" fill="#cdcdcd" height="75.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" styleClass="board_peice" width="75.0" />
                               <Label fx:id="l1" layoutX="10.0" layoutY="30.0" prefHeight="16.0" prefWidth="55.0" text="Chance" wrapText="true" />
                            </children>
                         </Pane>
@@ -211,7 +211,7 @@
                   </VBox>
                </right>
                <center>
-                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <HBox id="background" fx:id="background" prefHeight="100.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER">
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>

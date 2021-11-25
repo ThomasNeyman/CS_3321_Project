@@ -3,6 +3,7 @@ package cs3321.client;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,11 +12,10 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-
 public class Client extends Application {
     @Override
     public void start(Stage stage) throws IOException, InterruptedException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("board.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("boardtest.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 650);
         stage.setTitle("Monopoly");
         ClientController control = fxmlLoader.getController();

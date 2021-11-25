@@ -13,8 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 
@@ -108,6 +107,7 @@ public class ClientController {
     @FXML private Label p2gojfc;
 
     @FXML private Label turn;
+    @FXML private HBox background;
 
 //FXML for the connection board
 
@@ -128,8 +128,10 @@ public class ClientController {
     }
 
     public void updateUI() throws IOException, InterruptedException {
-        gameState = connection.updateGameState();
-        update(gameState);
+            gameState = connection.updateGameState();
+            update(gameState);
+
+
     }
 
     @FXML
@@ -154,7 +156,7 @@ public class ClientController {
                 connect.setVisible(false);
 
                 gameState = connection.updateGameState();
-
+                initialized = true;
                 update(gameState);
 
                     }
@@ -609,24 +611,24 @@ public class ClientController {
      */
     private void update(State gameState){
         //defines color of each rectangle, blue for playerone, red for playertwo, nad grey for the rest
-        Rectangle[] tile = {s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s21,s21,s22,s23,s24,s25,s26,s27};
-        Label[] tileName = {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l21,l21,l22,l23,l24,l25,l26,l27};
+        Rectangle[] tile = {s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s21,s22,s23,s24,s25,s26,s27};
+        Label[] tileName = {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l21,l22,l23,l24,l25,l26,l27};
         //creates a gradient if both players are on the same space
         if(gameState.getPlayerOne().getPosition()==gameState.getPlayerTwo().getPosition()){
-            for(int i=0; i<28;i++){
+            for(int i=0; i<=28;i++){
                 if(gameState.getPlayerTwo().getPosition()==i){
                     Stop[] stops = new Stop[]{new Stop(0,Color.BLUE),new Stop(1,Color.RED)};
                     LinearGradient gradient = new LinearGradient(0,0,1,0,true, CycleMethod.NO_CYCLE,stops);
                     tile[i].setFill(gradient);
                     tileName[i].setTextFill(Color.WHITE);
                 }else{
-                    tile[i].setFill(Color.LIGHTGREY);
+                    tile[i].setFill(Color.LIGHTGREEN);
                     tileName[i].setTextFill(Color.BLACK);
                 }
             }
             //if on seperate spaces colors each block
         }else{
-            for(int i=0; i<28;i++){
+            for(int i=0; i<=28;i++){
                 if(gameState.getPlayerOne().getPosition()==i){
                     tile[i].setFill(Color.BLUE);
                     tileName[i].setTextFill(Color.WHITE);
@@ -635,7 +637,7 @@ public class ClientController {
                     tileName[i].setTextFill(Color.WHITE);
                 }
                 else{
-                    tile[i].setFill(Color.LIGHTGREY);
+                    tile[i].setFill(Color.LIGHTGREEN);
                     tileName[i].setTextFill(Color.BLACK);
                 }
             }
@@ -688,6 +690,12 @@ public class ClientController {
         //sets color of dice
         Image diceImage = new Image(getClass().getResourceAsStream("images/dice_" + gameState.getDiceValue() + ".png"));
         dicePicture.setImage(diceImage);
+
+        /*BackgroundImage back = new BackgroundImage(new Image(getClass().getResourceAsStream("images/background.png")),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        background.setBackground(new Background(back));*/
 
     }
 
