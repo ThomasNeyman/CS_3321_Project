@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Client extends Application {
     @Override
     public void start(Stage stage) throws IOException, InterruptedException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("boardtest.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("board.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 650);
         stage.setTitle("Monopoly");
         ClientController control = fxmlLoader.getController();
