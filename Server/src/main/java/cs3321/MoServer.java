@@ -211,8 +211,9 @@ public class MoServer {
                 ctx.result(String.valueOf(num));
             });
         });
+    }
 
-
-
+    public void stopServer() {
+        javalin.stop();
     }
 }
