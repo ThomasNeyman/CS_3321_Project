@@ -11,9 +11,6 @@ public class Property{
     private int rent;
     private int position;
     private int numberOfHouses;
-    /*private int firstHouseRent;
-    private int secondHouseRent;
-    private int thirdHouseRent;*/
     private int houseCost;
 
     //Constructor
@@ -32,13 +29,6 @@ public class Property{
         this.position = position;
         this.name = name;
         this.numberOfHouses = 0;
-        // Make the extra rent for houses super simple so each one does not need
-        // to be assigned its own special values
-       /* this.firstHouseRent = (int) (rent * 1.5);
-        this.secondHouseRent = rent * 2;
-        this.thirdHouseRent = (int) (rent * 2.5);
-        */
-        // multiply by 0.5 instead of divide by 2 because it's faster
         this.houseCost = (int) (cost * 0.5);
     }
     public Property(){

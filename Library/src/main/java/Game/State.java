@@ -193,10 +193,12 @@ public class State {
      */
     public void useGetOutOfJailFreeCard() {
         if (getCurrentPlayer().isHasGOJFC()) {
+            System.out.println("Got here");
             getCurrentPlayer().setInJail(false);
             getCurrentPlayer().setHasGOJFC(false);
             setHasRolledDice(false);
         } else {
+            System.out.println("Got here instead");
             getCurrentPlayer().setInJail(true);
             setHasRolledDice(true);
         }

@@ -64,8 +64,6 @@ public class MoServer {
                     int rand = ThreadLocalRandom.current().nextInt(1, 7);
                     monopoly.updatePlayerPosition(rand);
                 }
-                //int diceRoll = ctx.bodyAsClass(Integer.class);
-                //monopoly.updatePlayerPosition(diceRoll);
                 Gson gson = new Gson();
                 String state = gson.toJson(monopoly.getGameState());
                 ctx.json(state);
@@ -102,6 +100,7 @@ public class MoServer {
              */
 
             post("/api/jailCard", ctx -> {
+                System.out.println("Card For Jail");
                 monopoly.getGameState().useGetOutOfJailFreeCard();
                 Gson gson = new Gson();
                 String state = gson.toJson(monopoly.getGameState());

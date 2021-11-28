@@ -327,7 +327,7 @@ public class ClientController {
         gameState = connection.updateGameState();
         connection.jailCard();
         update(gameState);
-        if (gameState.getCurrentPlayer().isInJail()) {
+        if (!gameState.getCurrentPlayer().isInJail()) {
             window.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You don't have a \"Get out of Jail FREE\" card...", ButtonType.OK);
