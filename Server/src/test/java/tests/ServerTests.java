@@ -32,7 +32,7 @@ public class ServerTests {
     @Test
     @DisplayName("Assert the server has been created")
     //@Disabled("Not Implemented")
-    void showAssertion() {
+    static void showAssertion() {
         Assertions.assertNotNull(MO_SERVER);
     }
 
