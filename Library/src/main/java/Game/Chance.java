@@ -18,7 +18,7 @@ public final class Chance {
      * @param gameState the gameState object of the game
      * @throws Exception if a value of a Chance card is not recognized
      */
-    public static void getChanceResult(int card, Player player,State gameState) throws Exception {
+    public static void getChanceResult(int card, Player player, State gameState) throws Exception {
         switch (card) {
             case 1 -> chanceCard_1(player,gameState);
             case 2 -> chanceCard_2(player,gameState);
@@ -30,31 +30,30 @@ public final class Chance {
         }
     }
 
-    public static void getChanceResult(int card, Player player) throws Exception {
-        getChanceResult(card,player,new State());
-    }
-
-
     private static void chanceCard_1(Player player,State gameState) {
         // Advance to GO and collect $200
         player.setPosition(0);
+        player.setBank(player.getBank() + 200);
         gameState.setChanceCardDescription("Advance to GO and collect $200");
+        System.out.println("Got Chance Card 1");
     }
 
     private static void chanceCard_2(Player player,State gameState) {
         // Advance to Boardwalk (Don't know what position that is yet
         player.setPosition(10);
         gameState.setChanceCardDescription("Advance to position 10");
+        System.out.println("Got Chance Card 2");
     }
 
     private static void chanceCard_3(Player player,State gameState) {
         // Advance to St. Charles Place
-        int oldPos = player.getPosition();
+        int oldPos = Integer.valueOf(player.getPosition());
         player.setPosition(5);
-        if(player.getPosition()<oldPos){
-            player.setBank(player.getBank()+200);
+        if(player.getPosition() < oldPos){
+            player.setBank(player.getBank() + 200);
         }
         gameState.setChanceCardDescription("Advance to St. Charles Place (position 5)");
+        System.out.println("Got Chance Card 3");
 
     }
 
@@ -68,6 +67,7 @@ public final class Chance {
             player.setPosition(player.getPosition() + 25);
         }
         gameState.setChanceCardDescription("Go back 3 spaces");
+        System.out.println("Got Chance Card 4");
 
     }
 
@@ -75,6 +75,7 @@ public final class Chance {
         // Get out of Jail Free card
         player.setHasGOJFC(true);
         gameState.setChanceCardDescription("Get out of Jail Free card");
+        System.out.println("Got Chance Card 5");
     }
 
     // We don't need to ever instantiate this class, so it remains private

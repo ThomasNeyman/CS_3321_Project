@@ -210,9 +210,15 @@ public class FunctionalTests {
     }
 
     @Test
-    @Order(11)
+    @Order(12)
     @DisplayName("Test for denying the available property")
     public void testDenyProperty() {
-
+        System.out.println("Test 12");
+        state.setPropertyAvailable(state.getPropertyList()[1]);
+        HttpResponse<JsonNode> response = Unirest.post("http://localhost:7000/api/denyProperty").body(new Gson().toJson(state.getPropertyAvailable())).asJson();
+        String data = response.getBody().toString();
+        state = new Gson().fromJson(data, State.class);
+        // Check to see if the property was denied and set null
+        Assertions.assertNull(state.getPropertyAvailable());
     }
 }

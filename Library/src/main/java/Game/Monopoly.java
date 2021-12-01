@@ -196,20 +196,48 @@ public class Monopoly {
      * @throws Exception Unknown value for a chance card
      */
     private void drawRandomCard(Player p) throws Exception {
+        System.out.println("The chance deck size before creation: " + gameState.getChanceCardIndex().size());
         if(gameState.getChanceCardIndex().size() == 0){
             for(int i = 0; i < gameState.getCHANCE_DECK_LENGTH(); i++){
-                gameState.addChanceCardIndex(i+1);
+                gameState.addChanceCardIndex(i + 1);
             }
         }
-        int randomindex = ThreadLocalRandom.current().nextInt(0,gameState.getChanceCardIndex().size());
+        System.out.println("The chance deck size: " + gameState.getChanceCardIndex().size());
+        int randomindex = ThreadLocalRandom.current().nextInt(0, gameState.getChanceCardIndex().size());
         // This function simply removes the chance card just drawn from the array. This
         // ensures duplicates won't be drawn
         int card = gameState.removeChanceCard(randomindex);
-        // set the has rolled dice to false so the player's position can be updated
-        //gameState.setHasRolledDice(false);
+        System.out.println("The chance deck size after removal: " + gameState.getChanceCardIndex().size());
+
         // This function executes the chosen chance card on the player
         Chance.getChanceResult(card, p, gameState);
-        updatePlayerPosition(0);
+        afterChanceCard(p);
+    }
+
+    /**
+     * Function called after a random card is chosen from chance to see if the player
+     * needs a prompt from their new position
+     * @param p the player that drew chance card
+     */
+    private void afterChanceCard(Player p) {
+        switch (p.getPosition()){
+            case 0, 7, 1, 8, 15, 22:
+                break;
+            case 2, 3, 5, 6, 9, 10, 12, 13, 16, 17, 19, 20, 23, 24, 26, 27:
+                onProperty(p, p.getPosition());
+                break;
+            case 4, 11, 18, 25:
+                tax(p, 40);
+                break;
+            case 14:
+                p.setBank(p.getBank()+gameState.getCommunityChest());
+                gameState.setCommunityChest(0);
+                break;
+            case 21:
+                p.setInJail(true);
+                p.setPosition(7);
+                break;
+        }
     }
 
     /**

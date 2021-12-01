@@ -15,7 +15,7 @@ public class State {
     private Player playerTwo;
     private Player winner;
     private Property[] propertyList;
-    private ArrayList<Integer> chanceCardIndex;
+    private final ArrayList<Integer> chanceCardIndex;
     private int turn;
     private int communityChest;
     private boolean hasWon;
@@ -132,7 +132,7 @@ public class State {
      * deck. This function is called by Monopoly and will remove the chosen
      * random chance card from the Chance deck stored in this State class.
      * @param randomCard The randomly chosen chance card by the Monopoly class
-     * @return the idnex of the removed card
+     * @return the index of the removed card
      */
     public int removeChanceCard(int randomCard) {
         int temp = chanceCardIndex.get(randomCard);
