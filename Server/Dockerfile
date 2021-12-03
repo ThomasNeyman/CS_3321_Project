@@ -5,5 +5,5 @@ COPY ./build/distributions/server-1.0-SNAPSHOT.zip ./server.zip
 RUN microdnf install zip unzip -y
 RUN unzip server.zip
 EXPOSE 7000
-ENTRYPOINT ./server/bin/server
+ENTRYPOINT ./server-1.0-SNAPSHOT/bin/server
 
