@@ -30,6 +30,7 @@ public class Player {
         this.inJail = false;
         this.hasGOJFC = false;
 
+
     }
 
     //Getters

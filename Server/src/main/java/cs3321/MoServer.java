@@ -55,6 +55,7 @@ public class MoServer {
              * dice roll post rout it recieves the random dice roll from the client and updates the players position accordingly
              */
 
+
             post("/api/diceRoll", ctx ->
             {
                 System.out.println("Dice Roll");

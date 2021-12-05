@@ -40,8 +40,9 @@ public final class Chance {
 
     private static void chanceCard_2(Player player,State gameState) {
         // Advance to Boardwalk (Don't know what position that is yet
-        player.setPosition(10);
-        gameState.setChanceCardDescription("Advance to position 10");
+        player.setPosition(27);
+
+        gameState.setChanceCardDescription("Advance to Boardwalk");
         System.out.println("Got Chance Card 2");
     }
 
@@ -54,6 +55,7 @@ public final class Chance {
         }
         gameState.setChanceCardDescription("Advance to St. Charles Place (position 5)");
         System.out.println("Got Chance Card 3");
+
 
     }
 
