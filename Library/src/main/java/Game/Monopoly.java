@@ -223,8 +223,23 @@ public class Monopoly {
         switch (p.getPosition()){
             case 0, 7, 1, 8, 15, 22:
                 break;
-            case 2, 3, 5, 6, 9, 10, 12, 13, 16, 17, 19, 20, 23, 24, 26, 27:
+            case 2, 3, 6, 9, 10, 13, 16, 17, 20, 23, 24:
                 onProperty(p, p.getPosition());
+                break;
+            case 5:
+                onProperty(p, 2);
+                break;
+            case 12:
+                onProperty(p, 6);
+                break;
+            case 19:
+                onProperty(p, 10);
+                break;
+            case 26:
+                onProperty(p, 14);
+                break;
+            case 27:
+                onProperty(p, 15);
                 break;
             case 4, 11, 18, 25:
                 tax(p, 40);
