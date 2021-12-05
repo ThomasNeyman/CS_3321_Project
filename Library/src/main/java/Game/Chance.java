@@ -56,6 +56,7 @@ public final class Chance {
         gameState.setChanceCardDescription("Advance to St. Charles Place (position 5)");
         System.out.println("Got Chance Card 3");
 
+
     }
 
     private static void chanceCard_4(Player player,State gameState) {

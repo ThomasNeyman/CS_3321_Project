@@ -13,6 +13,7 @@ public class Property{
     private int numberOfHouses;
     private int houseCost;
 
+
     //Constructor
 
     /**
