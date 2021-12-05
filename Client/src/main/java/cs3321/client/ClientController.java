@@ -611,8 +611,8 @@ public class ClientController {
      */
     private void update(State gameState){
         //defines color of each rectangle, blue for playerone, red for playertwo, nad grey for the rest
-        Rectangle[] tile = {s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s21,s22,s23,s24,s25,s26,s27};
-        Label[] tileName = {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l21,l22,l23,l24,l25,l26,l27};
+        Rectangle[] tile = {s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s22,s23,s24,s25,s26,s27};
+        Label[] tileName = {l0,l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15,l16,l17,l18,l19,l20,l21,l22,l23,l24,l25,l26,l27};
         //creates a gradient if both players are on the same space
         if(gameState.getPlayerOne().getPosition()==gameState.getPlayerTwo().getPosition()){
             for(int i=0; i<=28;i++){
