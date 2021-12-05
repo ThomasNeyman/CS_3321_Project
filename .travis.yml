@@ -15,6 +15,6 @@ script:
   - chmod +x gradlew
   - ./gradlew assemble
   - cd Server
-  - sudo docker build -t calebeardley/monopoly:1.0 .
+  - sudo docker build -t neymthom/monopoly:1.0 .
   - sudo docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-  - sudo docker push calebeardley/monopoly:1.0
+  - sudo docker push neymthom/monopoly:1.0
