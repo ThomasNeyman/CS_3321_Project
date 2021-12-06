@@ -13,13 +13,33 @@ Implementation for a Game game using microservices to communicate between a clie
 - [License](#license)
 
 ## Installation
+  This project is made of three modules, to the server can be pulled using
+  
+  ```$ docker pull neymthom/monopoly:1.0```
+  
+  The client can be accesses with
+  
+  ```$ gradle :Client:assemble```
+  
+  which will create a zip and tar file in Client/build/distributions
 ## Usage
+To run the client use
+
+```$ gradle :Client:run```
+
+To use the server run
+
+```$ docker container run -p 7000:7000 neymthom/monopoly:1.0```
+
+The server connects to port 7000
+
+
 
 ## Team
 Thomas Neyman - Scrum Master  
-Caleb Eardley - Product Owner  
-Garrett Stouffer   
-Pawan Kandel  
+Caleb Eardley - 
+Garrett Stouffer - Product Owner  
+ 
 
 ## Progress
 ![Project Health](docs/images/projectHealth3.png)
@@ -31,6 +51,8 @@ Gradle
 Testing - J Unit Jupiter  
 Microsevices - Javalin  
 UI - Javafx
+Docker
+TravisCI
 
 ## MVP
 ### Front End
