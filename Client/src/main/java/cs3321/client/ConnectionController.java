@@ -39,13 +39,7 @@ public class ConnectionController implements Initializable {
                     if (!connection.test()){
                         Alert badInput = new Alert(Alert.AlertType.WARNING, "Unable to connect, make sure your port and address are correct", ButtonType.OK);
                         badInput.show();
-                    }/*else{
-                        try {
-                            app.showBoard();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }*/
+                    }
             }else{
                 Alert emptyInput = new Alert(Alert.AlertType.WARNING, "One or more fields is empty", ButtonType.OK);
                 emptyInput.show();
