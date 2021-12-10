@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog]
 
+## 4.0.1 2021-12-9
+
+### Changed
+- Fixed a game breaking bug
+
 ## [4.0.0] 2021-12-5
 ### Added
 - Dockerization of server
@@ -59,5 +64,5 @@ Format based on [Keep a Changelog]
 [1.0.0]: https://github.com/ThomasNeyman/CS_3321_Project/releases/tag/v1.0.0
 [2.0.0]: https://github.com/ThomasNeyman/CS_3321_Project/releases/tag/v2.0.0
 [3.0.1]: https://github.com/ThomasNeyman/CS_3321_Project/releases/tag/v3.0.1
-[4.0.0]: 
+[4.0.0]: https://github.com/ThomasNeyman/CS_3321_Project/releases/tag/v4.0.0
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
